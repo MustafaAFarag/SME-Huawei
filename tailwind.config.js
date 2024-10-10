@@ -8,7 +8,7 @@ module.exports = {
         'background-text': '#C5CDDD', // Soft gray for backgrounds
         background: '#1a202c', // Darker background
         primary: '#2b6cb0', // Darker teal or blue
-        accent: '#f6e05e', // Light yellow for buttons
+        'soft-cyan': '#7DFFFF',
       },
     },
   },
