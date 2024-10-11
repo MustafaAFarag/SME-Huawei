@@ -187,3 +187,6 @@ This project is a prototype for an AI-Driven Supply Chain Management System tail
 This project showcases our ability to develop a robust AI-Driven Supply Chain Management System for SMEs. The prototype will demonstrate key features such as demand forecasting, inventory management, and logistics optimization, providing a comprehensive solution for Retail and E-commerce businesses.
 
 **Good luck with the presentation!**
+
+Tech Stack :
+HeadLess UI , react icons , tailwind ,

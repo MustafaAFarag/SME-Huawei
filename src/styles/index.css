@@ -1,31 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --text: #2d3748;
-  --background: #1a202c;
-  --primary: #2b6cb0;
-  --accent: #f6e05e;
-}
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-html {
-  font-size: 62.5%;
+  --text: #333333;
+  --background: #f8f9fa;
+  --primary: #0056b3;
+  --secondary: #00a86b;
+  --accent: #ffa500;
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   color: var(--text);
-  background-color: #ffffff;
-  font-weight: 600;
-  font-size: 1.6rem;
+  background-color: var(--background);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 h1,
@@ -33,20 +26,6 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: 'Montserrat', sans-serif;
-}
-
-*:disabled {
-  cursor: not-allowed;
-}
-
-select:disabled,
-input:disabled {
-  background-color: #e5e7eb;
-  color: #6b7280;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
 }
