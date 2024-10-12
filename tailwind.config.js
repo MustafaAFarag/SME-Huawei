@@ -1,6 +1,5 @@
 module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -13,6 +12,9 @@ module.exports = {
       fontFamily: {
         sans: ['Open Sans', 'sans-serif'],
         heading: ['Roboto', 'sans-serif'],
+      },
+      animation: {
+        carousel: 'carousel 20s linear infinite',
       },
     },
   },

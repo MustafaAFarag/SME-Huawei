@@ -189,4 +189,5 @@ This project showcases our ability to develop a robust AI-Driven Supply Chain Ma
 **Good luck with the presentation!**
 
 Tech Stack :
-HeadLess UI , react icons , tailwind ,
+HeadLess UI , react icons , tailwind , framer motion, flaticon , fontawesome
+React Router

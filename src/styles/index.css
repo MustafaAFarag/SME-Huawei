@@ -29,3 +29,16 @@ h5 {
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
 }
+
+@keyframes carousel {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(80%);
+  }
+}
+
+.animate-carousel {
+  animation: carousel 5s linear infinite;
+}
