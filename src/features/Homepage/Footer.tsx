@@ -46,12 +46,8 @@ function Footer() {
     <footer className="bg-primary py-12 text-white">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
-          <div className="lg:col-span-2">
-            <h3 className="text-3xl font-bold">LogiSmart</h3>
-            <p className="mt-4 max-w-xs text-sm text-white">
-              Empowering businesses with AI-driven supply chain solutions for
-              optimal efficiency and growth.
-            </p>
+          <div className="flex flex-col">
+            <h3 className="flex-grow text-3xl font-bold">LogiSmart</h3>
             <div className="mt-6 flex space-x-4">
               {socialIcons.map(({ Icon, href }, index) => (
                 <a

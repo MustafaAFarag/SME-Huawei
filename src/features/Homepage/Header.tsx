@@ -1,5 +1,6 @@
 import { FaBars } from 'react-icons/fa';
 import Button from '../../ui/Button';
+import { Link } from 'react-router-dom';
 
 type NavItemProps = {
   href: string;
@@ -10,7 +11,7 @@ function NavItem({ href, text }: NavItemProps) {
   return (
     <a
       href={href}
-      className="hover:text-secondary text-white transition-colors"
+      className="text-white transition-colors hover:text-secondary"
     >
       {text}
     </a>
@@ -22,7 +23,7 @@ function Header() {
     <header className="bg-primary shadow-md">
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="text-secondary flex font-heading text-2xl font-bold">
+          <div className="flex font-heading text-2xl font-bold text-secondary">
             <img src="./logo-removebg.png" className="h-12 w-12" />
             <h2 className="translate-y-2">LogiSmart</h2>
           </div>
@@ -35,7 +36,9 @@ function Header() {
             <NavItem href="#" text="Industries" />
             <NavItem href="#" text="Pricing" />
             <NavItem href="#" text="Contact Us" />
-            <Button label="Get Started" />
+            <Link to="/dashboard">
+              <Button label="Get Started" />
+            </Link>
           </div>
 
           {/* Mobile Menu (Hamburger) */}
