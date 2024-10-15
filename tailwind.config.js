@@ -3,18 +3,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#0056b3',
-        secondary: '#00a86b',
-        accent: '#ffa500',
-        background: '#f8f9fa',
-        text: '#333333',
+        primary: '#000e4d', // Dark Blue
+        secondary: '#72d8f7', // Cyan Blue
+        'white-primary': '#021048', // Header color when white background
+        'white-text': '#0a1641', // Text color when white background
       },
       fontFamily: {
         sans: ['Open Sans', 'sans-serif'],
         heading: ['Roboto', 'sans-serif'],
-      },
-      animation: {
-        carousel: 'carousel 20s linear infinite',
       },
     },
   },
