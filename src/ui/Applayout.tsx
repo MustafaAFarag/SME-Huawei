@@ -4,12 +4,12 @@ import Sidebar from './Sidebar';
 
 function AppLayout() {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen overflow-hidden">
       <Sidebar />
-      <div className="flex flex-1 flex-col overflow-hidden">
+      <div className="flex flex-1 flex-col">
         <AppHeader />
-        <main className="flex-1 overflow-y-auto overflow-x-hidden bg-gray-200 p-4">
-          <div className="mx-auto max-w-full rounded-lg bg-white p-4 shadow-md">
+        <main className="flex-1 overflow-y-auto bg-gray-200">
+          <div className="mx-auto max-w-full p-4">
             <Outlet />
           </div>
         </main>
