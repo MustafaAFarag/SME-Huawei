@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import AppHeader from './AppHeader';
 import Sidebar from './Sidebar';
 
-function AppLayout() {
+function AppLayoutReal() {
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar />
@@ -18,4 +18,4 @@ function AppLayout() {
   );
 }
 
-export default AppLayout;
+export default AppLayoutReal;
