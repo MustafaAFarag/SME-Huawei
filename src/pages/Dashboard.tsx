@@ -17,7 +17,6 @@ import {
   Pie,
   Cell,
 } from 'recharts';
-import Button from '../ui/Button';
 import { FaArrowDown } from 'react-icons/fa6';
 
 const data = [
