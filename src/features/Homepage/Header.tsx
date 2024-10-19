@@ -1,6 +1,7 @@
 import { FaBars } from 'react-icons/fa';
 import Button from '../../ui/Button';
 import { Link } from 'react-router-dom';
+import Logo from '../../ui/Logo';
 
 type NavItemProps = {
   href: string;
@@ -23,10 +24,7 @@ function Header() {
     <header className="bg-primary shadow-md">
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex font-heading text-2xl font-bold text-secondary">
-            <img src="./logo-removebg.png" className="h-12 w-12" />
-            <h2 className="translate-y-2">LogiSmart</h2>
-          </div>
+          <Logo />
 
           {/* Nav Items for larger screens */}
           <div className="hidden items-center space-x-6 md:flex">

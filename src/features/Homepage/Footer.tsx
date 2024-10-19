@@ -4,6 +4,7 @@ import {
   FaLinkedinIn,
   FaInstagram,
 } from 'react-icons/fa';
+import Logo from '../../ui/Logo';
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -45,9 +46,12 @@ function Footer() {
     <footer className="bg-primary py-12 text-white">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
-          <div className="flex flex-col">
-            <h3 className="flex-grow text-3xl font-bold">LogiSmart</h3>
-            <div className="mt-6 flex space-x-4">
+          <div className="flex flex-col justify-between">
+            {/* Logo at the top */}
+            <Logo />
+
+            {/* Social Icons at the bottom */}
+            <div className="mt-auto flex space-x-4">
               {socialIcons.map(({ Icon, href }, index) => (
                 <a
                   key={index}
@@ -61,6 +65,7 @@ function Footer() {
               ))}
             </div>
           </div>
+
           {footerLinks.map((column, index) => (
             <div key={index}>
               <h4 className="mb-4 font-semibold">{column.title}</h4>

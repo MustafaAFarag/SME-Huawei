@@ -5,18 +5,23 @@ import {
   FaBoxes,
   FaTruck,
   FaUsers,
+  FaFileAlt,
+  FaFileInvoiceDollar,
   FaCog,
   FaSignOutAlt,
   FaBars,
   FaTimes,
 } from 'react-icons/fa';
+import Logo from './Logo';
 
 const menuItems = [
   { icon: FaChartLine, text: 'Dashboard', link: '/dashboard' },
   { icon: FaBoxes, text: 'Inventory', link: '/inventory' },
   { icon: FaTruck, text: 'Logistics', link: '/logistics' },
   { icon: FaUsers, text: 'Customers', link: '/customers' },
-  { icon: FaCog, text: 'Settings', link: '/settings' },
+  { icon: FaFileAlt, text: 'Documents', link: '/documents' },
+  { icon: FaFileInvoiceDollar, text: 'Invoices', link: '/invoices' },
+  { icon: FaUsers, text: 'Users', link: '/users' },
 ];
 
 function Sidebar() {
@@ -39,7 +44,7 @@ function Sidebar() {
         } md:static md:translate-x-0`}
       >
         <div className="flex h-20 items-center justify-center border-b border-gray-700">
-          <h1 className="text-2xl font-bold">LogiSmart</h1>
+          <Logo />
         </div>
         <nav className="flex-1 space-y-2 overflow-y-auto p-4">
           {menuItems.map((item, index) => (
@@ -59,7 +64,15 @@ function Sidebar() {
           <button
             className="flex w-full items-center rounded-md p-3 text-left transition-colors duration-200 hover:bg-gray-700"
             onClick={() => {
-              // Add logout functionality here
+              console.log('Settings clicked');
+            }}
+          >
+            <FaCog className="mr-4 text-xl" />
+            <span>Settings</span>
+          </button>
+          <button
+            className="mt-2 flex w-full items-center rounded-md p-3 text-left transition-colors duration-200 hover:bg-gray-700"
+            onClick={() => {
               console.log('Logout clicked');
             }}
           >
