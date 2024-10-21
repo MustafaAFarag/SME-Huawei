@@ -7,7 +7,9 @@ import AppLayoutReal from './ui/AppLayoutReal';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
-import AuthPage from './pages/AuthPage';
+
+import Signup from './pages/Signup';
+import Login from './pages/Login';
 
 const queryClient = new QueryClient();
 
@@ -23,7 +25,8 @@ function App() {
             <Route path="/shipments" element={<Dashboard />} />
           </Route>
 
-          <Route path="/authpage" element={<AuthPage />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/" element={<Homepage />} />
         </Routes>
       </BrowserRouter>

@@ -1,12 +1,14 @@
 import { useForm } from 'react-hook-form';
 import { FaGoogle, FaApple } from 'react-icons/fa';
+import Logo from '../ui/Logo';
+import { Link } from 'react-router-dom';
 
 type FormData = {
   email: string;
   password: string;
 };
 
-function Login({ toggleSignup }: { toggleSignup: () => void }) {
+function Login() {
   const {
     register,
     handleSubmit,
@@ -23,6 +25,9 @@ function Login({ toggleSignup }: { toggleSignup: () => void }) {
       <div className="animate-fadeIn flex w-full max-w-7xl overflow-hidden rounded-lg bg-primary shadow-lg">
         {/* Left side: Form */}
         <div className="w-1/2 p-10">
+          <div className="flex items-center justify-center">
+            <Logo />
+          </div>
           <h2 className="mb-6 text-center text-3xl font-bold text-secondary">
             Welcome Back
           </h2>
@@ -98,12 +103,9 @@ function Login({ toggleSignup }: { toggleSignup: () => void }) {
             {/* Already have an account? */}
             <p className="text-center text-white opacity-70">
               Don't have an account?{' '}
-              <button
-                onClick={toggleSignup}
-                className="text-secondary underline"
-              >
+              <Link to="/signup" className="text-secondary underline">
                 Sign up
-              </button>
+              </Link>
             </p>
           </form>
 

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaGoogle, FaApple } from 'react-icons/fa';
+import Logo from '../ui/Logo';
+import { Link } from 'react-router-dom';
 
 type FormData = {
   fullName: string;
@@ -9,7 +11,7 @@ type FormData = {
   confirmPassword: string;
 };
 
-function Signup({ toggleSignup }: { toggleSignup: () => void }) {
+function Signup() {
   const [isChecked, setIsChecked] = useState(false);
 
   const {
@@ -39,6 +41,9 @@ function Signup({ toggleSignup }: { toggleSignup: () => void }) {
 
         {/* Right side: Form */}
         <div className="w-1/2 p-10">
+          <div className="flex items-center justify-center">
+            <Logo />
+          </div>
           <h2 className="mb-6 text-center text-3xl font-bold text-secondary">
             Create an Account
           </h2>
@@ -162,12 +167,9 @@ function Signup({ toggleSignup }: { toggleSignup: () => void }) {
             {/* Already have an account? */}
             <p className="mt-4 text-center text-white opacity-70">
               Already have an account?{' '}
-              <button
-                onClick={toggleSignup}
-                className="text-secondary underline"
-              >
+              <Link to="/login" className="text-secondary underline">
                 Log in
-              </button>
+              </Link>
             </p>
           </form>
 
