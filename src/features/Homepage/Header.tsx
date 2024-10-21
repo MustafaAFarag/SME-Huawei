@@ -34,7 +34,7 @@ function Header() {
             <NavItem href="#" text="Industries" />
             <NavItem href="#" text="Pricing" />
             <NavItem href="#" text="Contact Us" />
-            <Link to="/dashboard">
+            <Link to="/signup">
               <Button label="Get Started" />
             </Link>
           </div>
