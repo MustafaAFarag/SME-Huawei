@@ -18,6 +18,8 @@ import {
   Cell,
 } from 'recharts';
 import { FaArrowDown } from 'react-icons/fa6';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 const data = [
   { name: 'Week 1', value: 4000 },
@@ -59,16 +61,27 @@ const DashboardStat = ({
 }: DashboardStatProps) => {
   const isPositive = change >= 0;
   return (
-    <div className="flex gap-5 rounded-lg bg-white p-4 shadow-md">
-      <div className="flex items-center justify-center pl-4">
-        <Icon className="text-2xl text-primary" />
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="flex gap-5 rounded-lg bg-white px-6 py-4 shadow-md"
+    >
+      <div className="relative top-3 flex items-center justify-center">
+        <div className="absolute inset-0 flex h-14 w-14 items-center justify-center rounded-full bg-gray-200"></div>
+        <div className="relative bottom-[0.35rem] left-1 flex items-center justify-center rounded-full bg-secondary p-3">
+          <Icon className="text-2xl text-white" />
+        </div>
       </div>
+
       <div>
         <h3 className="mb-2 text-xs font-semibold text-gray-500">{title}</h3>
         <div className="flex items-center justify-center gap-2">
-          <p className="mb-1 text-2xl font-bold">{value}</p>
+          <p className="mb-1 text-4xl font-bold">{value}</p>
           <p
-            className={`text-sm ${isPositive ? 'text-green-500' : 'text-red-500'} flex translate-y-1 items-center justify-center`}
+            className={`text-sm ${
+              isPositive ? 'text-green-500' : 'text-red-500'
+            } flex translate-y-1 items-center justify-center`}
           >
             {isPositive ? <FaArrowUp /> : <FaArrowDown />}
             {Math.abs(change)}%{' '}
@@ -76,30 +89,47 @@ const DashboardStat = ({
           </p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
 function Dashboard() {
+  const [activeTimeframe, setActiveTimeframe] = useState('7');
+
   return (
     <div className="min-h-screen bg-gray-100">
-      <div className="p-6">
-        <div className="mb-6 flex flex-col justify-between sm:flex-row sm:items-center">
-          <h1 className="mb-4 text-2xl font-bold sm:mb-0">
-            Hello <span className="text-primary">Mustafa Ashraf</span>
+      <div className="p-8">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-8 flex flex-col justify-between sm:flex-row sm:items-center"
+        >
+          <h1 className="mb-4 text-3xl font-bold sm:mb-0">
+            Welcome back, <span className="text-blue-600">Mustafa Ashraf</span>
           </h1>
           <div className="inline-flex rounded-md shadow-sm">
-            <button className="rounded-l-lg border-2 border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:border-secondary hover:bg-gray-50 focus:z-10 focus:border-secondary focus:outline-none focus:ring-1 focus:ring-secondary">
-              Last 7 Days
-            </button>
-            <button className="-ml-px border-2 border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:border-secondary hover:bg-gray-50 focus:z-10 focus:border-secondary focus:outline-none focus:ring-1 focus:ring-secondary">
-              Last 10 Days
-            </button>
-            <button className="-ml-px rounded-r-lg border-2 border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:border-secondary hover:bg-gray-50 focus:z-10 focus:border-secondary focus:outline-none focus:ring-1 focus:ring-secondary">
-              Last 30 Days
-            </button>
+            {['7', '10', '30'].map((days) => (
+              <button
+                key={days}
+                onClick={() => setActiveTimeframe(days)}
+                className={`${
+                  activeTimeframe === days
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-white text-gray-700 hover:bg-gray-50'
+                } ${
+                  days === '7'
+                    ? 'rounded-l-lg'
+                    : days === '30'
+                      ? 'rounded-r-lg'
+                      : ''
+                } border border-gray-300 px-4 py-2 text-sm font-medium transition-colors duration-200 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+              >
+                Last {days} Days
+              </button>
+            ))}
           </div>
-        </div>
+        </motion.div>
 
         <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <DashboardStat
@@ -129,7 +159,7 @@ function Dashboard() {
               <p className="text-4xl font-bold">$14,560</p>
               <p className="text-sm text-green-500">+1.2% than last week</p>
             </div>
-            <button className="-ml-px rounded-r-lg border-2 border-gray-300 bg-white px-4 py-2 text-sm font-bold text-gray-700 hover:border-secondary hover:bg-gray-50 focus:z-10 focus:border-secondary focus:outline-none focus:ring-1 focus:ring-secondary">
+            <button className="rounded-lg border border-gray-300 bg-blue-500 px-4 py-2 text-sm font-medium text-white transition-colors duration-200 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
               Open Billings
             </button>
           </div>
@@ -160,42 +190,62 @@ function Dashboard() {
         </div>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          <div className="rounded-lg bg-white p-6 shadow-md">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="rounded-lg bg-white p-6 shadow-lg"
+          >
             <h3 className="mb-4 text-xl font-semibold">
               Spent by Business Type
             </h3>
             <table className="w-full">
               <thead>
                 <tr>
-                  <th className="text-left">Type</th>
-                  <th className="text-left">Percentage</th>
-                  <th className="text-right">Value</th>
+                  <th className="pb-2 text-left font-semibold text-gray-600">
+                    Type
+                  </th>
+                  <th className="pb-2 text-left font-semibold text-gray-600">
+                    Percentage
+                  </th>
+                  <th className="pb-2 text-right font-semibold text-gray-600">
+                    Value
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {businessTypes.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.type}</td>
-                    <td>
-                      <div className="h-2 w-full bg-gray-200">
-                        <div
-                          className="h-full bg-primary"
-                          style={{ width: `${item.percentage}%` }}
-                        ></div>
+                  <tr key={index} className="border-t border-gray-200">
+                    <td className="py-3">{item.type}</td>
+                    <td className="py-3">
+                      <div className="h-2 w-full rounded-full bg-gray-200">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${item.percentage}%` }}
+                          transition={{
+                            delay: 0.6 + index * 0.2,
+                            duration: 0.8,
+                          }}
+                          className="h-full rounded-full bg-primary"
+                        ></motion.div>
                       </div>
                     </td>
-                    <td className="text-right">
+                    <td className="py-3 text-right">
                       ${item.value.toLocaleString()}
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-          </div>
-          <div className="rounded-lg bg-white p-6 shadow-md">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="rounded-lg bg-white p-6 shadow-lg"
+          >
             <h3 className="mb-4 text-xl font-semibold">Deliveries</h3>
             <div className="flex items-center">
-              {/* Pie Chart */}
               <div className="h-48 w-48">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
@@ -217,32 +267,27 @@ function Dashboard() {
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-
-              {/* Delivery Status Stats */}
               <div className="ml-6 w-full">
                 {deliveries.map((item, index) => (
                   <div key={index} className="mb-2 flex items-center gap-4">
-                    {/* Status Text */}
                     <p className="w-24 truncate text-base font-semibold">
                       {item.status}
                     </p>
-                    {/* Progress Bar */}
-                    <div className="h-2 w-full max-w-[14rem] rounded bg-gray-200">
-                      <div
-                        className="h-full rounded"
-                        style={{
-                          width: `${item.percentage}%`,
-                          backgroundColor: item.color,
-                        }}
-                      ></div>
+                    <div className="h-2 w-full max-w-[14rem] rounded-full bg-gray-200">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: `${item.percentage}%` }}
+                        transition={{ delay: 0.6 + index * 0.2, duration: 0.8 }}
+                        className="h-full rounded-full"
+                        style={{ backgroundColor: item.color }}
+                      ></motion.div>
                     </div>
-                    {/* Percentage */}
                     <p className="text-base font-medium">{item.percentage}%</p>
                   </div>
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

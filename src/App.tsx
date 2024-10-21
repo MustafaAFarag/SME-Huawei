@@ -10,6 +10,7 @@ function App() {
       <Routes>
         <Route element={<AppLayoutReal />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/shipments" element={<Dashboard />} />
         </Route>
 
         <Route path="/" element={<Homepage />} />

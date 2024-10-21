@@ -17,7 +17,7 @@ import Logo from './Logo';
 const menuItems = [
   { icon: FaChartLine, text: 'Dashboard', link: '/dashboard' },
   { icon: FaBoxes, text: 'Inventory', link: '/inventory' },
-  { icon: FaTruck, text: 'Logistics', link: '/logistics' },
+  { icon: FaTruck, text: 'Shipments', link: '/shipments' },
   { icon: FaUsers, text: 'Customers', link: '/customers' },
   { icon: FaFileAlt, text: 'Documents', link: '/documents' },
   { icon: FaFileInvoiceDollar, text: 'Invoices', link: '/invoices' },
