@@ -1,22 +1,23 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import Signup from './Signup';
 import Login from './Login';
 
 function AuthPage() {
-  const [isLogin, setIsLogin] = useState<boolean>(true);
+  const [isSignup, setIsSignup] = useState<boolean>(true);
 
-  function toggleLogin() {
-    setIsLogin(!isLogin);
+  function toggleSignup() {
+    setIsSignup(!isSignup);
   }
 
   return (
-    <div>
-      {isLogin ? (
-        <Signup toggleLogin={toggleLogin} />
+    <motion.div transition={{ duration: 0.5 }}>
+      {isSignup ? (
+        <Signup toggleSignup={toggleSignup} />
       ) : (
-        <Login toggleLogin={toggleLogin} />
+        <Login toggleSignup={toggleSignup} />
       )}
-    </div>
+    </motion.div>
   );
 }
 

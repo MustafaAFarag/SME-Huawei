@@ -9,7 +9,7 @@ type FormData = {
   confirmPassword: string;
 };
 
-function Signup({ toggleLogin }: { toggleLogin: () => void }) {
+function Signup({ toggleSignup }: { toggleSignup: () => void }) {
   const [isChecked, setIsChecked] = useState(false);
 
   const {
@@ -163,7 +163,7 @@ function Signup({ toggleLogin }: { toggleLogin: () => void }) {
             <p className="mt-4 text-center text-white opacity-70">
               Already have an account?{' '}
               <button
-                onClick={toggleLogin}
+                onClick={toggleSignup}
                 className="text-secondary underline"
               >
                 Log in

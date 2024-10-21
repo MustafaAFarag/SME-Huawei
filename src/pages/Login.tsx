@@ -6,7 +6,7 @@ type FormData = {
   password: string;
 };
 
-function Login({ toggleLogin }: { toggleLogin: () => void }) {
+function Login({ toggleSignup }: { toggleSignup: () => void }) {
   const {
     register,
     handleSubmit,
@@ -99,7 +99,7 @@ function Login({ toggleLogin }: { toggleLogin: () => void }) {
             <p className="text-center text-white opacity-70">
               Don't have an account?{' '}
               <button
-                onClick={toggleLogin}
+                onClick={toggleSignup}
                 className="text-secondary underline"
               >
                 Sign up
@@ -126,7 +126,7 @@ function Login({ toggleLogin }: { toggleLogin: () => void }) {
         {/* Right side: Image */}
         <img
           className="w-1/2 bg-cover bg-center"
-          src="./logo-removebg.png"
+          src="./logo.jpg"
           alt="Brand Logo"
         />
       </div>
