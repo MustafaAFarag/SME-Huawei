@@ -28,7 +28,7 @@ function Hero() {
             chain management, optimize your inventory, and predict market demand
             like never before.
           </p>
-          <Link to="/signup">
+          <Link to="/dashboard">
             <Button label="Start Optimizing" />
           </Link>
         </div>
