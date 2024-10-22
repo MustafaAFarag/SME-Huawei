@@ -34,7 +34,7 @@ const customerData = [
 ];
 
 function Customers() {
-  const [customers, setCustomers] = useState(customerData);
+  const [customers] = useState(customerData);
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-100 p-8">

@@ -25,7 +25,7 @@ const memberData = [
 ];
 
 function Members() {
-  const [members, setMembers] = useState(memberData);
+  const [members] = useState(memberData);
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-100 p-8">

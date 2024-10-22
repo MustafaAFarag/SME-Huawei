@@ -10,7 +10,7 @@ const shipmentData = [
 ];
 
 function Shipments() {
-  const [shipments, setShipments] = useState(shipmentData);
+  const [shipments] = useState(shipmentData);
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-100 p-8">

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Button from '../../ui/Button';
 
 function Hero() {
@@ -27,7 +28,9 @@ function Hero() {
             chain management, optimize your inventory, and predict market demand
             like never before.
           </p>
-          <Button label="Start Optimizing" />
+          <Link to="/signup">
+            <Button label="Start Optimizing" />
+          </Link>
         </div>
       </div>
     </section>
