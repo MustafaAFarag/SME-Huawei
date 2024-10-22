@@ -10,6 +10,10 @@ import { Toaster } from 'react-hot-toast';
 
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import Inventory from './pages/Inventory';
+import Shipments from './pages/Shipments';
+import Customers from './pages/Customers';
+import Members from './pages/Members';
 
 const queryClient = new QueryClient();
 
@@ -22,7 +26,10 @@ function App() {
         <Routes>
           <Route element={<AppLayoutReal />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/shipments" element={<Dashboard />} />
+            <Route path="/inventory" element={<Inventory />} />
+            <Route path="/shipments" element={<Shipments />} />
+            <Route path="/customers" element={<Customers />} />
+            <Route path="/members" element={<Members />} />
           </Route>
 
           <Route path="/signup" element={<Signup />} />

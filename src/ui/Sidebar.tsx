@@ -21,7 +21,7 @@ const menuItems = [
   { icon: FaUsers, text: 'Customers', link: '/customers' },
   { icon: FaFileAlt, text: 'Documents', link: '/documents' },
   { icon: FaFileInvoiceDollar, text: 'Invoices', link: '/invoices' },
-  { icon: FaUsers, text: 'Users', link: '/users' },
+  { icon: FaUsers, text: 'Members', link: '/members' },
 ];
 
 function Sidebar() {
