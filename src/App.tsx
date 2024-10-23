@@ -14,6 +14,9 @@ import Inventory from './pages/Inventory';
 import Shipments from './pages/Shipments';
 import Customers from './pages/Customers';
 import Members from './pages/Members';
+import Documents from './pages/documents';
+import Invoices from './pages/Invoices';
+import Settings from './pages/Settings';
 
 const queryClient = new QueryClient();
 
@@ -30,6 +33,9 @@ function App() {
             <Route path="/shipments" element={<Shipments />} />
             <Route path="/customers" element={<Customers />} />
             <Route path="/members" element={<Members />} />
+            <Route path="/documents" element={<Documents />} />
+            <Route path="/invoices" element={<Invoices />} />
+            <Route path="/settings" element={<Settings />} />
           </Route>
 
           <Route path="/signup" element={<Signup />} />

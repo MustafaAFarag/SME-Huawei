@@ -61,7 +61,8 @@ function Sidebar() {
           ))}
         </nav>
         <div className="border-t border-gray-700 p-4">
-          <button
+          <Link
+            to="/settings"
             className="flex w-full items-center rounded-md p-3 text-left transition-colors duration-200 hover:bg-gray-700"
             onClick={() => {
               console.log('Settings clicked');
@@ -69,7 +70,7 @@ function Sidebar() {
           >
             <FaCog className="mr-4 text-xl" />
             <span>Settings</span>
-          </button>
+          </Link>
           <button
             className="mt-2 flex w-full items-center rounded-md p-3 text-left transition-colors duration-200 hover:bg-gray-700"
             onClick={() => {
