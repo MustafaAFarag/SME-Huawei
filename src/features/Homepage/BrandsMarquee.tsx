@@ -53,7 +53,7 @@ function BrandsMarquee() {
     <div className="flex flex-col gap-10 bg-gray-200 py-10">
       <h2 className="text-center text-5xl text-white-primary">
         More than <span className="text-blue-600">10,000+</span> Clients Trust
-        LogiSmart
+        NexusFlow
       </h2>
       <Marquee gradient={true} speed={50}>
         {brands.map((brand, index) => (

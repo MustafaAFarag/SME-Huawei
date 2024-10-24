@@ -1,93 +1,51 @@
-// pages/Signup.tsx
-import { ChangeEvent, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
-import SignupHeader from '../features/Signup/SignupHeader';
+import { Link } from 'react-router-dom';
 import SignupForm from '../features/Signup/SignupForm';
 import SocialSignup from '../features/Signup/SocialSignup';
+import Logo from '../ui/Logo';
 
-type FormData = {
-  fullName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
-
+// Signup Page
 function Signup() {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
-
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-    // Handle signup logic (e.g., call Supabase signup API)
-  };
-
-  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(e.target.checked);
-  };
-
-  // Define animation variants for form elements
-  const staggerContainer = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: 0.2 },
-    },
-  };
-
   return (
     <>
-      <SignupHeader />
-
-      {/* Background gradient */}
       <motion.div
-        className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-400 to-blue-600"
-        initial="hidden"
-        animate="visible"
-        variants={staggerContainer}
+        className="absolute top-0 z-50 rounded-xl bg-white/10 px-6 py-3 backdrop-blur-md"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
       >
-        <div className="flex w-full max-w-7xl overflow-hidden rounded-xl bg-primary shadow-2xl">
-          {/* Left side: Image */}
-          <motion.img
-            className="w-1/2 bg-cover bg-center"
-            src="./logo.jpg"
-            alt="Brand Logo"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-          />
+        <Logo />
+      </motion.div>
 
-          {/* Right side: Form */}
-          <motion.div className="w-1/2 p-12">
-            <motion.h2
-              className="mb-8 text-center text-4xl font-bold text-secondary"
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: 0.6, ease: 'easeOut' },
-                },
-              }}
+      <motion.div
+        className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-900 via-blue-900 to-blue-800 text-white"
+        transition={{ duration: 0.5 }}
+      >
+        <div className="w-full max-w-md space-y-6 rounded-lg bg-white/10 p-8 shadow-lg backdrop-blur-lg">
+          {/* Title */}
+          <motion.h1
+            className="text-center text-2xl font-semibold"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            Create Account
+          </motion.h1>
+
+          {/* Signup Form */}
+          <SignupForm />
+
+          <SocialSignup />
+          {/* Already have an account */}
+          <p className="mt-8 text-center text-sm text-gray-400">
+            Already have an account?{' '}
+            <Link
+              to="/login"
+              className="text-blue-400 hover:text-blue-300 hover:underline"
             >
-              Create an Account
-            </motion.h2>
-
-            <SignupForm
-              onSubmit={handleSubmit(onSubmit)} // Correctly pass the wrapped function
-              errors={errors}
-              register={register}
-              isChecked={isChecked}
-              handleCheckboxChange={handleCheckboxChange}
-            />
-
-            {/* Move SocialSignup inside the main form area */}
-            <SocialSignup />
-          </motion.div>
+              Log in
+            </Link>
+          </p>
         </div>
       </motion.div>
     </>

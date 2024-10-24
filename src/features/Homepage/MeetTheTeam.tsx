@@ -57,7 +57,7 @@ function MeetTheTeam() {
       linkedin: 'https://www.linkedin.com/in/mohamed-atwan',
     },
     {
-      name: 'Khaled',
+      name: 'Khalid Omar',
       role: 'AI Engineer',
       image: './default-user.jpg',
       linkedin: 'https://www.linkedin.com/in/khaled-profile',
@@ -85,7 +85,7 @@ function MeetTheTeam() {
             visible: {
               opacity: 1,
               transition: {
-                staggerChildren: 0.3, // Delay between each card
+                staggerChildren: 0.3,
               },
             },
           }}

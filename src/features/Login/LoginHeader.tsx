@@ -4,9 +4,9 @@ import Logo from '../../ui/Logo';
 function LoginHeader() {
   return (
     <motion.div
-      className="absolute left-1/2 top-[4.6rem] -translate-x-1/2 transform rounded-t-lg bg-gradient-to-r from-gray-500 to-primary px-4 py-2 shadow-lg"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      className="absolute left-1/2 top-20 -translate-x-1/2 transform rounded-xl bg-white/10 px-6 py-3 backdrop-blur-md"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
       <Logo />
