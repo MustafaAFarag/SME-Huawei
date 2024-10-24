@@ -14,7 +14,7 @@ import Inventory from './pages/Inventory';
 import Shipments from './pages/Shipments';
 import Customers from './pages/Customers';
 import Members from './pages/Members';
-import Documents from './pages/documents';
+import Documents from './pages/Documents';
 import Invoices from './pages/Invoices';
 import Settings from './pages/Settings';
 
