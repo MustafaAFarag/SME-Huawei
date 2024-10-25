@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { FaPaperPlane, FaPhone, FaEnvelope, FaUser } from 'react-icons/fa';
 
 const ContactUs = () => {
@@ -13,7 +13,7 @@ const ContactUs = () => {
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setFormData({
       ...formData,
@@ -21,7 +21,7 @@ const ContactUs = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     console.log('Form Data:', formData);
     setSubmitted(true);
@@ -45,7 +45,7 @@ const ContactUs = () => {
       <div className="mx-auto max-w-6xl overflow-hidden rounded-2xl bg-white shadow-xl">
         <div className="grid md:grid-cols-2">
           {/* Left side - Contact Information */}
-          <div className="bg-gradient-to-br from-blue-600 to-indigo-700 px-8 py-12 text-white">
+          <div className="bg-gradient-to-br from-primary to-secondary px-8 py-12 text-white">
             <h2 className="text-3xl font-bold">Let's Talk</h2>
             <p className="mt-4 text-blue-100">
               We'd love to hear from you. Send us a message and we'll respond as
@@ -172,7 +172,7 @@ const ContactUs = () => {
 
               <button
                 type="submit"
-                className="group relative w-full overflow-hidden rounded-lg bg-gradient-to-r from-blue-600 to-indigo-700 px-8 py-3 text-white transition-all hover:from-blue-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="group relative w-full overflow-hidden rounded-lg bg-gradient-to-r from-primary to-secondary px-8 py-3 text-white transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
                 <span className="relative flex items-center justify-center gap-2">
                   Send Message
