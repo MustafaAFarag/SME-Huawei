@@ -7,48 +7,61 @@ import Logo from '../ui/Logo';
 // Signup Page
 function Signup() {
   return (
-    <>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-blue-800">
       <motion.div
-        className="absolute top-0 z-50 rounded-xl bg-white/10 px-6 py-3 backdrop-blur-md"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        className="flex min-h-screen flex-col items-center justify-center px-4 py-20 sm:px-6 lg:px-8"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
       >
-        <Logo />
-      </motion.div>
+        <motion.div
+          className="z-50 rounded-t-lg bg-white/10 px-6 py-3 backdrop-blur-md"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Logo />
+        </motion.div>
+        <div className="w-full max-w-md space-y-8 rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-lg">
+          <div className="text-center">
+            <motion.h2
+              className="text-3xl font-bold tracking-tight text-white"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              Create Account
+            </motion.h2>
+            <motion.p
+              className="mt-2 text-sm text-gray-400"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              Please enter your details to sign up
+            </motion.p>
+          </div>
 
-      <motion.div
-        className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-900 via-blue-900 to-blue-800 text-white"
-        transition={{ duration: 0.5 }}
-      >
-        <div className="w-full max-w-md space-y-6 rounded-lg bg-white/10 p-8 shadow-lg backdrop-blur-lg">
-          {/* Title */}
-          <motion.h1
-            className="text-center text-2xl font-semibold"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            Create Account
-          </motion.h1>
-
-          {/* Signup Form */}
           <SignupForm />
-
           <SocialSignup />
-          {/* Already have an account */}
-          <p className="mt-8 text-center text-sm text-gray-400">
+
+          <motion.p
+            className="text-center text-sm text-gray-400"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
             Already have an account?{' '}
             <Link
               to="/login"
-              className="text-blue-400 hover:text-blue-300 hover:underline"
+              className="font-medium text-blue-400 hover:text-blue-300 hover:underline"
             >
               Log in
             </Link>
-          </p>
+          </motion.p>
         </div>
       </motion.div>
-    </>
+    </div>
   );
 }
 

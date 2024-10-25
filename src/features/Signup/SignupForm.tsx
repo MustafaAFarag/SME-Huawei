@@ -41,15 +41,21 @@ function SignupForm() {
     >
       {/* Full Name */}
       <motion.div>
-        <label className="mb-2 block text-sm font-medium text-gray-200">
-          Full Name
-        </label>
-        <input
-          {...register('fullName', { required: 'Full name is required' })}
-          type="text"
-          className="w-full rounded-lg border border-gray-300 bg-white/10 p-3 text-white backdrop-blur-sm placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-          placeholder="John Doe"
-        />
+        <div className="relative">
+          <input
+            {...register('fullName', { required: 'Full name is required' })}
+            type="text"
+            className="peer w-full border-b-2 border-gray-300 bg-transparent py-2 pl-1 text-white placeholder-transparent focus:border-blue-600 focus:outline-none"
+            placeholder=" "
+            id="fullName"
+          />
+          <label
+            htmlFor="fullName"
+            className="absolute -top-3.5 left-1 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600"
+          >
+            Full Name
+          </label>
+        </div>
         {errors.fullName && (
           <motion.p
             initial={{ opacity: 0 }}
@@ -63,21 +69,27 @@ function SignupForm() {
 
       {/* Email */}
       <motion.div>
-        <label className="mb-2 block text-sm font-medium text-gray-200">
-          Email Address
-        </label>
-        <input
-          {...register('email', {
-            required: 'Email is required',
-            pattern: {
-              value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-              message: 'Please enter a valid email address',
-            },
-          })}
-          type="email"
-          className="w-full rounded-lg border border-gray-300 bg-white/10 p-3 text-white backdrop-blur-sm placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-          placeholder="your@email.com"
-        />
+        <div className="relative">
+          <input
+            {...register('email', {
+              required: 'Email is required',
+              pattern: {
+                value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                message: 'Please enter a valid email address',
+              },
+            })}
+            type="email"
+            className="peer w-full border-b-2 border-gray-300 bg-transparent py-2 pl-1 text-white placeholder-transparent focus:border-blue-600 focus:outline-none"
+            placeholder=" "
+            id="email"
+          />
+          <label
+            htmlFor="email"
+            className="absolute -top-3.5 left-1 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600"
+          >
+            Email Address
+          </label>
+        </div>
         {errors.email && (
           <motion.p
             initial={{ opacity: 0 }}
@@ -91,9 +103,6 @@ function SignupForm() {
 
       {/* Password */}
       <motion.div>
-        <label className="mb-2 block text-sm font-medium text-gray-200">
-          Password
-        </label>
         <div className="relative">
           <input
             {...register('password', {
@@ -104,8 +113,16 @@ function SignupForm() {
               },
             })}
             type={showPassword ? 'text' : 'password'}
-            className="w-full rounded-lg border border-gray-300 bg-white/10 p-3 pr-10 text-white backdrop-blur-sm placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+            className="peer w-full border-b-2 border-gray-300 bg-transparent py-2 pl-1 text-white placeholder-transparent focus:border-blue-600 focus:outline-none"
+            placeholder=" "
+            id="password"
           />
+          <label
+            htmlFor="password"
+            className="absolute -top-3.5 left-1 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600"
+          >
+            Password
+          </label>
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
@@ -127,9 +144,6 @@ function SignupForm() {
 
       {/* Confirm Password */}
       <motion.div>
-        <label className="mb-2 block text-sm font-medium text-gray-200">
-          Confirm Password
-        </label>
         <div className="relative">
           <input
             {...register('confirmPassword', {
@@ -138,8 +152,12 @@ function SignupForm() {
                 value === password || 'The passwords do not match',
             })}
             type={showConfirmPassword ? 'text' : 'password'}
-            className="w-full rounded-lg border border-gray-300 bg-white/10 p-3 pr-10 text-white backdrop-blur-sm placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+            className="peer w-full border-b-2 border-gray-300 bg-transparent py-2 pl-1 text-white placeholder-transparent focus:border-blue-600 focus:outline-none"
+            placeholder=" "
           />
+          <label className="absolute -top-3.5 left-1 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600">
+            Confirm Password
+          </label>
           <button
             type="button"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
@@ -191,8 +209,8 @@ function SignupForm() {
       {/* Submit Button */}
       <motion.button
         type="submit"
-        disabled={isSubmitting || !agreeToTerms} // Disable if not checked or submitting
-        className={`relative w-full overflow-hidden rounded-lg bg-blue-600 p-3 font-semibold text-white transition-all hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-800 disabled:opacity-65`}
+        disabled={isSubmitting || !agreeToTerms}
+        className="relative w-full overflow-hidden rounded-lg bg-blue-600 p-3 font-semibold text-white transition-all hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-800 disabled:opacity-65"
         whileTap={{ scale: 0.98 }}
       >
         {isSubmitting ? (

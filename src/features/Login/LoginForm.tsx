@@ -33,21 +33,26 @@ function LoginForm() {
       transition={{ duration: 0.5, delay: 0.2 }}
     >
       <motion.div>
-        <label className="mb-2 block text-sm font-medium text-gray-200">
-          Email Address
-        </label>
-        <input
-          {...register('email', {
-            required: 'Email is required',
-            pattern: {
-              value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-              message: 'Please enter a valid email address',
-            },
-          })}
-          type="email"
-          className="w-full rounded-lg border border-gray-300 bg-white/10 p-3 text-white backdrop-blur-sm placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-          placeholder="your@email.com"
-        />
+        <div className="relative">
+          <input
+            {...register('email', {
+              required: 'Email is required',
+              pattern: {
+                value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                message: 'Please enter a valid email address',
+              },
+            })}
+            type="email"
+            className="peer w-full border-b-2 border-gray-300 bg-transparent py-2 pl-1 text-white placeholder-transparent focus:border-blue-600 focus:outline-none"
+            placeholder=" "
+          />
+          <label
+            htmlFor="Email"
+            className="absolute -top-3.5 left-1 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600"
+          >
+            Email Address
+          </label>
+        </div>
         {errors.email && (
           <motion.p
             initial={{ opacity: 0 }}
@@ -60,9 +65,6 @@ function LoginForm() {
       </motion.div>
 
       <motion.div>
-        <label className="mb-2 block text-sm font-medium text-gray-200">
-          Password
-        </label>
         <div className="relative">
           <input
             {...register('password', {
@@ -73,8 +75,12 @@ function LoginForm() {
               },
             })}
             type={showPassword ? 'text' : 'password'}
-            className="w-full rounded-lg border border-gray-300 bg-white/10 p-3 pr-10 text-white backdrop-blur-sm placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+            className="peer w-full border-b-2 border-gray-300 bg-transparent py-2 pl-1 text-white placeholder-transparent focus:border-blue-600 focus:outline-none"
+            placeholder=" "
           />
+          <label className="absolute -top-3.5 left-1 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600">
+            Password
+          </label>
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
