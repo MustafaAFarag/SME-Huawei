@@ -1,10 +1,4 @@
-import { IconType } from 'react-icons';
-import {
-  FaFileAlt,
-  FaShip,
-  FaFileInvoiceDollar,
-  FaArrowUp,
-} from 'react-icons/fa';
+import { useState } from 'react';
 import {
   AreaChart,
   Area,
@@ -17,33 +11,35 @@ import {
   Pie,
   Cell,
 } from 'recharts';
-import { FaArrowDown } from 'react-icons/fa6';
+import { FaShoppingCart, FaUsers, FaBoxes, FaChartLine } from 'react-icons/fa';
+import { IconType } from 'react-icons';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 
-const data = [
-  { name: 'Week 1', value: 4000 },
-  { name: 'Week 2', value: 3000 },
-  { name: 'Week 3', value: 5000 },
-  { name: 'Week 4', value: 4000 },
-  { name: 'Week 5', value: 6000 },
-  { name: 'Week 6', value: 5500 },
-  { name: 'Week 7', value: 7000 },
-  { name: 'Week 8', value: 6500 },
-  { name: 'Week 9', value: 7500 },
-  { name: 'Week 10', value: 8000 },
+// Sample retail-focused data
+const salesData = [
+  { name: 'Week 1', value: 15000 },
+  { name: 'Week 2', value: 18000 },
+  { name: 'Week 3', value: 22000 },
+  { name: 'Week 4', value: 19000 },
+  { name: 'Week 5', value: 25000 },
+  { name: 'Week 6', value: 28000 },
+  { name: 'Week 7', value: 30000 },
+  { name: 'Week 8', value: 32000 },
+  { name: 'Week 9', value: 35000 },
+  { name: 'Week 10', value: 38000 },
 ];
 
-const businessTypes = [
-  { type: 'Oil & Gas', percentage: 45, value: 38053.15 },
-  { type: 'Crude Oil', percentage: 32, value: 26240.2 },
-  { type: 'Cars', percentage: 22, value: 12640.2 },
+const categoryBreakdown = [
+  { type: 'Electronics', percentage: 35, value: 158000 },
+  { type: 'Fashion', percentage: 28, value: 126000 },
+  { type: 'Home & Living', percentage: 22, value: 99000 },
+  { type: 'Beauty', percentage: 15, value: 67000 },
 ];
 
-const deliveries = [
-  { status: 'On time', percentage: 60, color: '#4CAF50' },
-  { status: 'In progress', percentage: 20, color: '#FFC107' },
-  { status: 'Delayed', percentage: 16, color: '#F44336' },
+const orderStatus = [
+  { status: 'Completed', percentage: 65, color: '#4CAF50' },
+  { status: 'Processing', percentage: 25, color: '#FFC107' },
+  { status: 'Cancelled', percentage: 10, color: '#F44336' },
 ];
 
 type DashboardStatProps = {
@@ -61,196 +57,164 @@ const DashboardStat = ({
 }: DashboardStatProps) => {
   const isPositive = change >= 0;
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="flex gap-5 rounded-lg bg-white px-6 py-4 shadow-md"
-    >
-      <div className="relative top-3 flex items-center justify-center">
-        <div className="absolute inset-0 flex h-14 w-14 items-center justify-center rounded-full bg-gray-200"></div>
-        <div className="relative bottom-[0.35rem] left-1 flex items-center justify-center rounded-full bg-secondary p-3">
-          <Icon className="text-2xl text-white" />
+    <div className="rounded-lg bg-white p-6 shadow-lg">
+      <div className="flex items-start gap-4">
+        <div className="translate-y-5 rounded-full bg-blue-100 p-3">
+          <Icon className="text-2xl text-blue-600" />
         </div>
-      </div>
-
-      <div>
-        <h3 className="mb-2 text-xs font-semibold text-gray-500">{title}</h3>
-        <div className="flex items-center justify-center gap-2">
-          <p className="mb-1 text-4xl font-bold">{value}</p>
+        <div className="flex-1">
+          <h3 className="text-sm font-medium text-gray-600">{title}</h3>
+          <p className="mt-2 text-2xl font-bold">{value}</p>
           <p
-            className={`text-sm ${
-              isPositive ? 'text-green-500' : 'text-red-500'
-            } flex translate-y-1 items-center justify-center`}
+            className={`mt-1 text-sm ${isPositive ? 'text-green-500' : 'text-red-500'}`}
           >
-            {isPositive ? <FaArrowUp /> : <FaArrowDown />}
-            {Math.abs(change)}%{' '}
-            <span className="ml-1 text-gray-500">than last week</span>
+            {isPositive ? '↑' : '↓'} {Math.abs(change)}% than last week
           </p>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
 function Dashboard() {
-  const [activeTimeframe, setActiveTimeframe] = useState('7');
+  const [timeframe, setTimeframe] = useState('7');
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-50">
       <div className="p-8">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-8 flex flex-col justify-between sm:flex-row sm:items-center"
-        >
-          <h1 className="mb-4 text-3xl font-bold sm:mb-0">
-            Welcome back, <span className="text-blue-600">Mustafa Ashraf</span>
-          </h1>
-          <div className="inline-flex rounded-md shadow-sm">
-            {['7', '10', '30'].map((days) => (
+        <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">
+              E-Commerce Dashboard
+            </h1>
+            <p className="mt-1 text-gray-600">Track your store's performance</p>
+          </div>
+          <div className="inline-flex rounded-lg bg-white shadow-sm">
+            {['7', '30', '90'].map((days) => (
               <button
                 key={days}
-                onClick={() => setActiveTimeframe(days)}
-                className={`${
-                  activeTimeframe === days
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-50'
-                } ${
-                  days === '7'
-                    ? 'rounded-l-lg'
-                    : days === '30'
-                      ? 'rounded-r-lg'
-                      : ''
-                } border border-gray-300 px-4 py-2 text-sm font-medium transition-colors duration-200 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+                onClick={() => setTimeframe(days)}
+                className={`px-4 py-2 text-sm font-medium ${
+                  timeframe === days
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-700 hover:bg-gray-50'
+                } ${days === '7' ? 'rounded-l-lg' : ''} ${days === '90' ? 'rounded-r-lg' : ''} `}
               >
-                Last {days} Days
+                {days} Days
               </button>
             ))}
           </div>
-        </motion.div>
+        </div>
 
-        <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <DashboardStat
-            title="REQUEST FOR QUOTATION"
-            value="21"
-            change={1.2}
-            icon={FaFileAlt}
+            title="TOTAL ORDERS"
+            value="1,284"
+            change={12.5}
+            icon={FaShoppingCart}
           />
           <DashboardStat
-            title="SHIPMENTS"
-            value="42"
-            change={7.8}
-            icon={FaShip}
+            title="ACTIVE CUSTOMERS"
+            value="892"
+            change={8.2}
+            icon={FaUsers}
           />
           <DashboardStat
-            title="INVOICES TO PAY"
-            value="8"
-            change={-1.23}
-            icon={FaFileInvoiceDollar}
+            title="INVENTORY ITEMS"
+            value="1,567"
+            change={-2.4}
+            icon={FaBoxes}
+          />
+          <DashboardStat
+            title="CONVERSION RATE"
+            value="3.2%"
+            change={0.8}
+            icon={FaChartLine}
           />
         </div>
 
-        <div className="mb-8 rounded-lg bg-white p-6 shadow-md">
-          <div className="mb-8 flex items-end justify-between">
+        <div className="mb-8 rounded-lg bg-white p-6 shadow-lg">
+          <div className="mb-6 flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-semibold text-gray-600">You spent</h2>
-              <p className="text-4xl font-bold">$14,560</p>
-              <p className="text-sm text-green-500">+1.2% than last week</p>
+              <h2 className="text-xl font-bold text-gray-900">
+                Revenue Overview
+              </h2>
+              <p className="text-gray-600">Total revenue: $285,000</p>
             </div>
-            <button className="rounded-lg border border-gray-300 bg-blue-500 px-4 py-2 text-sm font-medium text-white transition-colors duration-200 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-              Open Billings
-            </button>
+            <select className="rounded-lg border border-gray-300 px-4 py-2 text-sm">
+              <option>This Month</option>
+              <option>Last Month</option>
+              <option>Last Quarter</option>
+            </select>
           </div>
-
-          <div className="h-64">
+          <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={data}>
+              <AreaChart data={salesData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
                 <defs>
-                  <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#72d8f7" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#72d8f7" stopOpacity={0} />
+                  <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.8} />
+                    <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <Area
                   type="monotone"
                   dataKey="value"
-                  stroke="#72d8f7"
-                  fillOpacity={1}
-                  fill="url(#colorValue)"
+                  stroke="#3B82F6"
+                  fill="url(#colorRevenue)"
                 />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="rounded-lg bg-white p-6 shadow-lg"
-          >
-            <h3 className="mb-4 text-xl font-semibold">
-              Spent by Business Type
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="rounded-lg bg-white p-6 shadow-lg">
+            <h3 className="mb-6 text-xl font-bold text-gray-900">
+              Sales by Category
             </h3>
-            <table className="w-full">
-              <thead>
-                <tr>
-                  <th className="pb-2 text-left font-semibold text-gray-600">
-                    Type
-                  </th>
-                  <th className="pb-2 text-left font-semibold text-gray-600">
-                    Percentage
-                  </th>
-                  <th className="pb-2 text-right font-semibold text-gray-600">
-                    Value
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {businessTypes.map((item, index) => (
-                  <tr key={index} className="border-t border-gray-200">
-                    <td className="py-3">{item.type}</td>
-                    <td className="py-3">
-                      <div className="h-2 w-full rounded-full bg-gray-200">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${item.percentage}%` }}
-                          transition={{
-                            delay: 0.6 + index * 0.2,
-                            duration: 0.8,
-                          }}
-                          className="h-full rounded-full bg-primary"
-                        ></motion.div>
-                      </div>
-                    </td>
-                    <td className="py-3 text-right">
-                      ${item.value.toLocaleString()}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </motion.div>
+            <div className="grid grid-cols-3 gap-4 font-medium text-gray-600">
+              <div className="border-b">Category</div>
+              <div className="border-b">Share</div>
+              <div className="border-b text-right">Revenue</div>
+            </div>
+            <div className="grid grid-cols-3 gap-4">
+              {categoryBreakdown.map((item) => (
+                <>
+                  <div className="py-3">{item.type}</div>
+                  <div className="flex items-center py-3">
+                    <div className="h-2 w-full rounded-full bg-gray-200">
+                      <div
+                        className="h-full rounded-full bg-blue-600"
+                        style={{ width: `${item.percentage}%` }}
+                      />
+                    </div>
+                    <span className="ml-2 text-sm">{item.percentage}%</span>
+                  </div>
+                  <div className="py-3 text-right">
+                    ${item.value.toLocaleString()}
+                  </div>
+                </>
+              ))}
+            </div>
+          </div>
+
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, duration: 0.5 }}
             className="rounded-lg bg-white p-6 shadow-lg"
           >
-            <h3 className="mb-4 text-xl font-semibold">Deliveries</h3>
+            <h3 className="mb-4 text-xl font-semibold">Order Status</h3>
             <div className="flex items-center">
               <div className="h-48 w-48">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
-                      data={deliveries}
+                      data={orderStatus}
                       dataKey="percentage"
                       nameKey="status"
                       cx="50%"
@@ -259,7 +223,7 @@ function Dashboard() {
                       fill="#8884d8"
                       label
                     >
-                      {deliveries.map((entry, index) => (
+                      {orderStatus.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
                     </Pie>
@@ -268,7 +232,7 @@ function Dashboard() {
                 </ResponsiveContainer>
               </div>
               <div className="ml-6 w-full">
-                {deliveries.map((item, index) => (
+                {orderStatus.map((item, index) => (
                   <div key={index} className="mb-2 flex items-center gap-4">
                     <p className="w-24 truncate text-base font-semibold">
                       {item.status}
