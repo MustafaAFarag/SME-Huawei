@@ -15,7 +15,6 @@ import { FaShoppingCart, FaUsers, FaBoxes, FaChartLine } from 'react-icons/fa';
 import { IconType } from 'react-icons';
 import { motion } from 'framer-motion';
 
-// Sample retail-focused data
 const salesData = [
   { name: 'Week 1', value: 15000 },
   { name: 'Week 2', value: 18000 },
@@ -57,7 +56,12 @@ const DashboardStat = ({
 }: DashboardStatProps) => {
   const isPositive = change >= 0;
   return (
-    <div className="rounded-lg bg-white p-6 shadow-lg">
+    <motion.div
+      initial={{ scale: 0.9, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="rounded-lg bg-white p-6 shadow-lg"
+    >
       <div className="flex items-start gap-4">
         <div className="translate-y-5 rounded-full bg-blue-100 p-3">
           <Icon className="text-2xl text-blue-600" />
@@ -66,13 +70,15 @@ const DashboardStat = ({
           <h3 className="text-sm font-medium text-gray-600">{title}</h3>
           <p className="mt-2 text-2xl font-bold">{value}</p>
           <p
-            className={`mt-1 text-sm ${isPositive ? 'text-green-500' : 'text-red-500'}`}
+            className={`mt-1 text-sm ${
+              isPositive ? 'text-green-500' : 'text-red-500'
+            }`}
           >
             {isPositive ? '↑' : '↓'} {Math.abs(change)}% than last week
           </p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -80,7 +86,12 @@ function Dashboard() {
   const [timeframe, setTimeframe] = useState('7');
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+      className="min-h-screen bg-gray-50"
+    >
       <div className="p-8">
         <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
           <div>
@@ -98,7 +109,9 @@ function Dashboard() {
                   timeframe === days
                     ? 'bg-blue-600 text-white'
                     : 'text-gray-700 hover:bg-gray-50'
-                } ${days === '7' ? 'rounded-l-lg' : ''} ${days === '90' ? 'rounded-r-lg' : ''} `}
+                } ${days === '7' ? 'rounded-l-lg' : ''} ${
+                  days === '90' ? 'rounded-r-lg' : ''
+                } `}
               >
                 {days} Days
               </button>
@@ -133,7 +146,12 @@ function Dashboard() {
           />
         </div>
 
-        <div className="mb-8 rounded-lg bg-white p-6 shadow-lg">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          className="mb-8 rounded-lg bg-white p-6 shadow-lg"
+        >
           <div className="mb-6 flex items-center justify-between">
             <div>
               <h2 className="text-xl font-bold text-gray-900">
@@ -169,10 +187,15 @@ function Dashboard() {
               </AreaChart>
             </ResponsiveContainer>
           </div>
-        </div>
+        </motion.div>
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="rounded-lg bg-white p-6 shadow-lg">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="rounded-lg bg-white p-6 shadow-lg"
+          >
             <h3 className="mb-6 text-xl font-bold text-gray-900">
               Sales by Category
             </h3>
@@ -200,7 +223,7 @@ function Dashboard() {
                 </>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, x: 20 }}
@@ -254,7 +277,7 @@ function Dashboard() {
           </motion.div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

@@ -70,7 +70,7 @@ function Invoices() {
       </div>
 
       {/* Invoices Table */}
-      <div className="overflow-hidden rounded-lg bg-white shadow-md">
+      <div className="rounded-lg bg-white shadow-md">
         <div className="grid grid-cols-[1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
           <div>Invoice ID</div>
           <div>Customer</div>

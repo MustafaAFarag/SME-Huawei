@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   FaPlus,
   FaEdit,
@@ -6,6 +7,7 @@ import {
   FaSearch,
   FaChevronDown,
   FaExclamationTriangle,
+  FaEllipsisV,
 } from 'react-icons/fa';
 import {
   Menu,
@@ -103,7 +105,7 @@ const FilterDropdown = ({
   onChange: (value: string) => void;
   label: string;
 }) => (
-  <Menu as="div" className="relative">
+  <Menu as="div" className="relative isolate">
     <MenuButton className="flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50">
       {label}: {value}
       <FaChevronDown className="text-gray-500" />
@@ -116,18 +118,19 @@ const FilterDropdown = ({
       leaveFrom="transform scale-100 opacity-100"
       leaveTo="transform scale-95 opacity-0"
     >
-      <MenuItems className="absolute right-0 mt-2 w-40 rounded-lg bg-white py-1 shadow-lg">
+      <MenuItems className="absolute right-0 z-[100] mt-2 w-40 rounded-lg bg-white py-1 shadow-lg">
         {options.map((option) => (
           <MenuItem key={option}>
             {({ active }) => (
-              <button
+              <motion.button
+                whileHover={{ x: 4 }}
                 className={`${
                   active ? 'bg-gray-100' : ''
                 } w-full px-4 py-2 text-left text-sm font-semibold text-gray-800`}
                 onClick={() => onChange(option)}
               >
                 {option}
-              </button>
+              </motion.button>
             )}
           </MenuItem>
         ))}
@@ -145,13 +148,13 @@ function Inventory() {
   const getStatusColor = (status: Status): string => {
     switch (status) {
       case 'In Stock':
-        return 'bg-green-100 text-green-800';
+        return 'bg-green-200 text-green-900';
       case 'Low Stock':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-yellow-200 text-yellow-900';
       case 'Out of Stock':
-        return 'bg-red-100 text-red-800';
+        return 'bg-red-200 text-red-900';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-200 text-gray-900';
     }
   };
 
@@ -174,7 +177,11 @@ function Inventory() {
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="mx-auto">
         {/* Header */}
-        <div className="mb-8 flex items-center justify-between">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-8 flex items-center justify-between"
+        >
           <div>
             <h1 className="text-4xl font-bold text-gray-900">Inventory</h1>
             <p className="mt-1 text-base text-gray-600">
@@ -182,13 +189,22 @@ function Inventory() {
               attention
             </p>
           </div>
-          <button className="inline-flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-blue-800">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-blue-800"
+          >
             <FaPlus /> Add Product
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
 
         {/* Filters */}
-        <div className="mb-6 flex items-center gap-4">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="relative z-10 mb-6 flex items-center gap-4"
+        >
           <div className="relative flex-1">
             <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
             <input
@@ -211,10 +227,15 @@ function Inventory() {
             onChange={setSelectedStatus}
             label="Status"
           />
-        </div>
+        </motion.div>
 
         {/* Inventory Table */}
-        <div className="overflow-hidden rounded-lg bg-white shadow-md">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="relative z-0 rounded-lg bg-white shadow-md"
+        >
           <div className="grid grid-cols-[1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
             <div>Image</div>
             <div>Product Info</div>
@@ -223,51 +244,85 @@ function Inventory() {
             <div>Actions</div>
           </div>
 
-          {filteredInventory.map((item) => (
-            <div
-              key={item.id}
-              className="grid grid-cols-[1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
-            >
-              <div>
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="h-12 w-12 rounded-lg object-cover"
-                />
-              </div>
-              <div>
-                <p className="text-lg font-bold text-gray-900">{item.name}</p>
-                <p className="text-sm text-gray-500">SKU: {item.sku}</p>
-              </div>
-              <div className="flex items-center gap-5">
-                <p className="text-base text-primary">{item.quantity}</p>
-                {item.quantity <= item.reorderPoint && (
-                  <p className="flex items-center text-sm text-yellow-600">
-                    <FaExclamationTriangle className="mr-1" /> Reorder needed
-                  </p>
-                )}
-              </div>
-              <div>
-                <span
-                  className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getStatusColor(item.status)}`}
-                >
-                  {item.status}
-                </span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <button className="rounded p-1 text-blue-700 hover:bg-blue-50">
-                  <FaEdit />
-                </button>
-                <button className="rounded p-1 text-red-700 hover:bg-red-50">
-                  <FaTrash />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+          <AnimatePresence>
+            {filteredInventory.map((item, index) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ delay: index * 0.1 }}
+                className="relative grid grid-cols-[1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
+              >
+                <motion.div whileHover={{ scale: 1.05 }}>
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="h-12 w-12 rounded-lg object-cover"
+                  />
+                </motion.div>
+                <div>
+                  <p className="text-lg font-bold text-gray-900">{item.name}</p>
+                  <p className="text-sm text-gray-500">SKU: {item.sku}</p>
+                </div>
+                <div className="flex items-center gap-5">
+                  <p className="text-base text-primary">{item.quantity}</p>
+                  {item.quantity <= item.reorderPoint && (
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="flex items-center text-sm text-yellow-600"
+                    >
+                      <FaExclamationTriangle className="mr-1" /> Reorder needed
+                    </motion.p>
+                  )}
+                </div>
+                <div>
+                  <motion.span
+                    whileHover={{ scale: 1.05 }}
+                    className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getStatusColor(item.status)}`}
+                  >
+                    {item.status}
+                  </motion.span>
+                </div>
+                <div className="flex items-center justify-end">
+                  <Menu as="div" className="relative">
+                    <MenuButton className="static z-0 rounded-full bg-white p-2 text-gray-600 hover:bg-gray-100">
+                      <FaEllipsisV />
+                    </MenuButton>
+                    <Transition
+                      enter="transition duration-100 ease-out"
+                      enterFrom="transform scale-95 opacity-0"
+                      enterTo="transform scale-100 opacity-100"
+                      leave="transition duration-75 ease-out"
+                      leaveFrom="transform scale-100 opacity-100"
+                      leaveTo="transform scale-95 opacity-0"
+                    >
+                      <MenuItems className="absolute right-0 z-[999] mt-2 inline-block w-32 translate-y-2 rounded-lg bg-white py-1 shadow-lg">
+                        <MenuItem>
+                          {() => (
+                            <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm font-semibold text-gray-800">
+                              <FaEdit className="text-blue-700" /> Edit
+                            </button>
+                          )}
+                        </MenuItem>
+                        <MenuItem>
+                          {() => (
+                            <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm font-semibold text-gray-800">
+                              <FaTrash className="text-red-700" /> Delete
+                            </button>
+                          )}
+                        </MenuItem>
+                      </MenuItems>
+                    </Transition>
+                  </Menu>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </div>
   );
 }
-
 export default Inventory;

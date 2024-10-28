@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaPlus, FaEdit, FaTrash, FaSearch } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash, FaSearch, FaEllipsisV } from 'react-icons/fa';
 import {
   Menu,
   MenuButton,
@@ -71,7 +71,7 @@ function Members() {
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-95 opacity-0"
       >
-        <MenuItems className="absolute right-0 mt-2 w-40 rounded-lg bg-white py-1 shadow-lg">
+        <MenuItems className="absolute right-0 z-50 mt-2 w-40 rounded-lg bg-white py-1 shadow-lg">
           {options.map((option) => (
             <MenuItem key={option}>
               {({ active }) => (
@@ -133,7 +133,7 @@ function Members() {
         </div>
 
         {/* Members Table */}
-        <div className="overflow-hidden rounded-lg bg-white shadow-md">
+        <div className="rounded-lg bg-white shadow-md">
           <div className="grid grid-cols-[2fr,2fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
             <div>Name</div>
             <div>Email</div>
@@ -152,13 +152,37 @@ function Members() {
               <div className="font-medium text-gray-800">{member.name}</div>
               <div className="text-gray-600">{member.email}</div>
               <div className="text-gray-600">{member.role}</div>
-              <div className="flex items-center gap-2">
-                <button className="rounded p-1 text-blue-700 hover:bg-blue-50">
-                  <FaEdit />
-                </button>
-                <button className="rounded p-1 text-red-700 hover:bg-red-50">
-                  <FaTrash />
-                </button>
+              <div className="flex items-center justify-end">
+                <Menu as="div" className="relative">
+                  <MenuButton className="rounded-full p-2 text-gray-600 hover:bg-gray-100">
+                    <FaEllipsisV />
+                  </MenuButton>
+                  <Transition
+                    enter="transition duration-100 ease-out"
+                    enterFrom="transform scale-95 opacity-0"
+                    enterTo="transform scale-100 opacity-100"
+                    leave="transition duration-75 ease-out"
+                    leaveFrom="transform scale-100 opacity-100"
+                    leaveTo="transform scale-95 opacity-0"
+                  >
+                    <MenuItems className="absolute right-0 z-[60] mt-2 w-40 rounded-lg bg-white py-1 shadow-lg">
+                      <MenuItem>
+                        {() => (
+                          <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm font-semibold text-gray-800">
+                            <FaEdit className="text-blue-700" /> Edit
+                          </button>
+                        )}
+                      </MenuItem>
+                      <MenuItem>
+                        {() => (
+                          <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm font-semibold text-gray-800">
+                            <FaTrash className="text-red-700" /> Delete
+                          </button>
+                        )}
+                      </MenuItem>
+                    </MenuItems>
+                  </Transition>
+                </Menu>
               </div>
             </motion.div>
           ))}

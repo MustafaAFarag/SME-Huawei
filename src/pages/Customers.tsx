@@ -45,12 +45,15 @@ const customerData = [
   },
 ];
 
-const statuses = ['All', 'Active', 'Inactive', 'Pending'] as const;
+type CustomerStatus = 'Active' | 'Inactive' | 'Pending';
+type FilterStatus = CustomerStatus | 'All';
+
+const statuses: FilterStatus[] = ['All', 'Active', 'Inactive', 'Pending'];
 
 function Customers() {
   const [customers] = useState(customerData);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedStatus, setSelectedStatus] = useState('All');
+  const [selectedStatus, setSelectedStatus] = useState<FilterStatus>('All');
 
   const filteredCustomers = customers.filter((customer) => {
     const matchesSearch =
@@ -64,15 +67,28 @@ function Customers() {
     return matchesSearch && matchesStatus;
   });
 
+  const getStatusColor = (status: FilterStatus): string => {
+    switch (status) {
+      case 'Active':
+        return 'bg-green-200 text-green-900';
+      case 'Inactive':
+        return 'bg-red-200 text-red-900';
+      case 'Pending':
+        return 'bg-yellow-200 text-yellow-900';
+      default:
+        return 'bg-gray-200 text-gray-900';
+    }
+  };
+
   const FilterDropdown = ({
     options,
     value,
     onChange,
     label,
   }: {
-    options: readonly string[];
-    value: string;
-    onChange: (value: string) => void;
+    options: readonly FilterStatus[];
+    value: FilterStatus;
+    onChange: (value: FilterStatus) => void;
     label: string;
   }) => (
     <Menu as="div" className="relative">
@@ -87,7 +103,7 @@ function Customers() {
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-95 opacity-0"
       >
-        <MenuItems className="absolute right-0 mt-2 w-40 rounded-lg bg-white py-1 shadow-lg">
+        <MenuItems className="absolute right-0 z-50 mt-2 w-40 rounded-lg bg-white py-1 shadow-lg">
           {options.map((option) => (
             <MenuItem key={option}>
               {() => (
@@ -142,7 +158,7 @@ function Customers() {
         </div>
 
         {/* Customers Table */}
-        <div className="overflow-hidden rounded-lg bg-white shadow-md">
+        <div className="rounded-lg bg-white shadow-md">
           <div className="grid grid-cols-[1fr,2fr,2fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
             <div>Customer ID</div>
             <div>Name</div>
@@ -159,16 +175,12 @@ function Customers() {
               <div className="font-medium text-gray-800">{customer.id}</div>
               <div className="font-medium text-gray-800">{customer.name}</div>
               <div className="text-gray-600">{customer.email}</div>
-              <div
-                className={`font-medium ${
-                  customer.status === 'Inactive'
-                    ? 'text-red-600'
-                    : customer.status === 'Active'
-                      ? 'text-green-600'
-                      : 'text-yellow-500'
-                }`}
-              >
-                {customer.status}
+              <div>
+                <span
+                  className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getStatusColor(customer.status as CustomerStatus)}`}
+                >
+                  {customer.status}
+                </span>
               </div>
               <div className="flex items-center justify-end">
                 <Menu as="div" className="relative">
@@ -183,7 +195,7 @@ function Customers() {
                     leaveFrom="transform scale-100 opacity-100"
                     leaveTo="transform scale-95 opacity-0"
                   >
-                    <MenuItems className="absolute right-0 z-50 mt-2 w-32 rounded-lg bg-white py-1 shadow-lg">
+                    <MenuItems className="absolute right-0 z-50 mt-2 w-40 rounded-lg bg-white py-1 shadow-lg">
                       <MenuItem>
                         {() => (
                           <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm font-semibold text-gray-800">
