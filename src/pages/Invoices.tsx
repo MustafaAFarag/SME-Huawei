@@ -7,6 +7,7 @@ import {
   Transition,
 } from '@headlessui/react';
 import { FaEdit, FaTrash, FaPlus, FaSearch, FaEllipsisV } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 const invoiceData = [
   { id: 'INV001', customer: 'John Doe', amount: '$500.00', date: '2024-10-22' },
@@ -80,8 +81,12 @@ function Invoices() {
         </div>
 
         {filteredInvoices.map((invoice) => (
-          <div
+          <motion.div
             key={invoice.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
             className="grid grid-cols-[1fr,1fr,1fr,1fr,auto] border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
           >
             <div className="font-medium text-gray-800">{invoice.id}</div>
@@ -124,7 +129,7 @@ function Invoices() {
                 </Transition>
               </Menu>
             </div>
-          </div>
+          </motion.div>
         ))}
 
         {filteredInvoices.length === 0 && (

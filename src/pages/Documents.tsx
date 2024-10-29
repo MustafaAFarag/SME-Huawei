@@ -7,6 +7,7 @@ import {
   Transition,
 } from '@headlessui/react';
 import { FaEdit, FaTrash, FaPlus, FaEllipsisV, FaSearch } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 const documentData = [
   {
@@ -144,8 +145,12 @@ function Documents() {
         </div>
 
         {filteredDocuments.map((doc) => (
-          <div
+          <motion.div
             key={doc.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
             className="grid grid-cols-[1fr,2fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
           >
             <div className="font-medium text-gray-800">{doc.id}</div>
@@ -187,7 +192,7 @@ function Documents() {
                 </Transition>
               </Menu>
             </div>
-          </div>
+          </motion.div>
         ))}
 
         {filteredDocuments.length === 0 && (

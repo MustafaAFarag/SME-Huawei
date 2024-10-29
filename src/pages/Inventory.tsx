@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   FaPlus,
   FaEdit,
@@ -111,26 +111,23 @@ const FilterDropdown = ({
       <FaChevronDown className="text-gray-500" />
     </MenuButton>
     <Transition
-      enter="transition duration-100 ease-out"
+      enter="transition duration-75 ease-in-out"
       enterFrom="transform scale-95 opacity-0"
       enterTo="transform scale-100 opacity-100"
-      leave="transition duration-75 ease-out"
+      leave="transition duration-50 ease-in-out"
       leaveFrom="transform scale-100 opacity-100"
       leaveTo="transform scale-95 opacity-0"
     >
       <MenuItems className="absolute right-0 z-[100] mt-2 w-40 rounded-lg bg-white py-1 shadow-lg">
         {options.map((option) => (
           <MenuItem key={option}>
-            {({ active }) => (
-              <motion.button
-                whileHover={{ x: 4 }}
-                className={`${
-                  active ? 'bg-gray-100' : ''
-                } w-full px-4 py-2 text-left text-sm font-semibold text-gray-800`}
+            {() => (
+              <button
+                className="w-full px-4 py-2 text-left text-sm font-semibold text-gray-800"
                 onClick={() => onChange(option)}
               >
                 {option}
-              </motion.button>
+              </button>
             )}
           </MenuItem>
         ))}
@@ -177,11 +174,7 @@ function Inventory() {
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="mx-auto">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8 flex items-center justify-between"
-        >
+        <div className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold text-gray-900">Inventory</h1>
             <p className="mt-1 text-base text-gray-600">
@@ -189,22 +182,13 @@ function Inventory() {
               attention
             </p>
           </div>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-blue-800"
-          >
+          <button className="inline-flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-blue-800">
             <FaPlus /> Add Product
-          </motion.button>
-        </motion.div>
+          </button>
+        </div>
 
         {/* Filters */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="relative z-10 mb-6 flex items-center gap-4"
-        >
+        <div className="relative z-10 mb-6 flex items-center gap-4">
           <div className="relative flex-1">
             <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
             <input
@@ -227,15 +211,10 @@ function Inventory() {
             onChange={setSelectedStatus}
             label="Status"
           />
-        </motion.div>
+        </div>
 
         {/* Inventory Table */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="relative z-0 rounded-lg bg-white shadow-md"
-        >
+        <div className="relative z-0 rounded-lg bg-white shadow-md">
           <div className="grid grid-cols-[1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
             <div>Image</div>
             <div>Product Info</div>
@@ -244,83 +223,76 @@ function Inventory() {
             <div>Actions</div>
           </div>
 
-          <AnimatePresence>
-            {filteredInventory.map((item, index) => (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ delay: index * 0.1 }}
-                className="relative grid grid-cols-[1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
-              >
-                <motion.div whileHover={{ scale: 1.05 }}>
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="h-12 w-12 rounded-lg object-cover"
-                  />
-                </motion.div>
-                <div>
-                  <p className="text-lg font-bold text-gray-900">{item.name}</p>
-                  <p className="text-sm text-gray-500">SKU: {item.sku}</p>
-                </div>
-                <div className="flex items-center gap-5">
-                  <p className="text-base text-primary">{item.quantity}</p>
-                  {item.quantity <= item.reorderPoint && (
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="flex items-center text-sm text-yellow-600"
-                    >
-                      <FaExclamationTriangle className="mr-1" /> Reorder needed
-                    </motion.p>
-                  )}
-                </div>
-                <div>
-                  <motion.span
-                    whileHover={{ scale: 1.05 }}
-                    className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getStatusColor(item.status)}`}
+          {filteredInventory.map((item, index) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ duration: 0.2, delay: index * 0.05 }}
+              className="relative grid grid-cols-[1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
+            >
+              <div>
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="h-12 w-12 rounded-lg object-cover"
+                />
+              </div>
+              <div>
+                <p className="text-lg font-bold text-gray-900">{item.name}</p>
+                <p className="text-sm text-gray-500">SKU: {item.sku}</p>
+              </div>
+              <div className="flex items-center gap-5">
+                <p className="text-base text-primary">{item.quantity}</p>
+                {item.quantity <= item.reorderPoint && (
+                  <p className="flex items-center text-sm text-yellow-600">
+                    <FaExclamationTriangle className="mr-1" /> Reorder needed
+                  </p>
+                )}
+              </div>
+              <div>
+                <span
+                  className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getStatusColor(item.status)}`}
+                >
+                  {item.status}
+                </span>
+              </div>
+              <div className="flex items-center justify-end">
+                <Menu as="div" className="relative">
+                  <MenuButton className="static z-0 rounded-full p-2 text-gray-600 hover:bg-gray-100">
+                    <FaEllipsisV />
+                  </MenuButton>
+                  <Transition
+                    enter="transition duration-75 ease-in-out"
+                    enterFrom="transform scale-95 opacity-0"
+                    enterTo="transform scale-100 opacity-100"
+                    leave="transition duration-50 ease-in-out"
+                    leaveFrom="transform scale-100 opacity-100"
+                    leaveTo="transform scale-95 opacity-0"
                   >
-                    {item.status}
-                  </motion.span>
-                </div>
-                <div className="flex items-center justify-end">
-                  <Menu as="div" className="relative">
-                    <MenuButton className="static z-0 rounded-full bg-white p-2 text-gray-600 hover:bg-gray-100">
-                      <FaEllipsisV />
-                    </MenuButton>
-                    <Transition
-                      enter="transition duration-100 ease-out"
-                      enterFrom="transform scale-95 opacity-0"
-                      enterTo="transform scale-100 opacity-100"
-                      leave="transition duration-75 ease-out"
-                      leaveFrom="transform scale-100 opacity-100"
-                      leaveTo="transform scale-95 opacity-0"
-                    >
-                      <MenuItems className="absolute right-0 z-[999] mt-2 inline-block w-32 translate-y-2 rounded-lg bg-white py-1 shadow-lg">
-                        <MenuItem>
-                          {() => (
-                            <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm font-semibold text-gray-800">
-                              <FaEdit className="text-blue-700" /> Edit
-                            </button>
-                          )}
-                        </MenuItem>
-                        <MenuItem>
-                          {() => (
-                            <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm font-semibold text-gray-800">
-                              <FaTrash className="text-red-700" /> Delete
-                            </button>
-                          )}
-                        </MenuItem>
-                      </MenuItems>
-                    </Transition>
-                  </Menu>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+                    <MenuItems className="absolute right-7 z-[999] mt-2 inline-block w-32 rounded-lg bg-white py-1 shadow-lg">
+                      <MenuItem>
+                        {() => (
+                          <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm font-semibold text-gray-800">
+                            <FaEdit className="text-blue-700" /> Edit
+                          </button>
+                        )}
+                      </MenuItem>
+                      <MenuItem>
+                        {() => (
+                          <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm font-semibold text-gray-800">
+                            <FaTrash className="text-red-700" /> Delete
+                          </button>
+                        )}
+                      </MenuItem>
+                    </MenuItems>
+                  </Transition>
+                </Menu>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </div>
   );

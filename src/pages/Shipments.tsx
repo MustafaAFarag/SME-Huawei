@@ -17,6 +17,7 @@ import {
   FaPlus,
   FaEllipsisV,
 } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 type ShipmentStatus = 'In Transit' | 'Delivered' | 'Pending' | 'Cancelled';
 type Carrier = 'DHL' | 'FedEx' | 'UPS';
@@ -78,6 +79,11 @@ const statuses = [
   'Pending',
   'Cancelled',
 ] as const;
+
+const fadeIn = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0 },
+};
 
 function Shipments() {
   const [shipments] = useState<Shipment[]>(shipmentData);
@@ -145,11 +151,9 @@ function Shipments() {
         <MenuItems className="absolute right-0 z-50 mt-2 w-40 rounded-lg bg-white py-1 shadow-lg">
           {options.map((option) => (
             <MenuItem key={option}>
-              {({ active }) => (
+              {() => (
                 <button
-                  className={`${
-                    active ? 'bg-gray-100' : ''
-                  } w-full px-4 py-2 text-left text-sm font-semibold text-gray-800`}
+                  className="w-full px-4 py-2 text-left text-sm font-semibold text-gray-800"
                   onClick={() => onChange(option)}
                 >
                   {option}
@@ -180,7 +184,7 @@ function Shipments() {
         </div>
 
         {/* Filters */}
-        <div className="mb-6 flex items-center gap-4">
+        <div className="relative z-10 mb-6 flex items-center gap-4">
           <div className="relative flex-1">
             <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
             <input
@@ -217,9 +221,13 @@ function Shipments() {
           </div>
 
           {filteredShipments.map((shipment) => (
-            <div
+            <motion.div
               key={shipment.id}
               className="grid grid-cols-[1fr,1fr,2fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
+              variants={fadeIn}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 0.3 }}
             >
               <div>
                 <div className="text-lg font-bold text-gray-900">
@@ -256,7 +264,7 @@ function Shipments() {
                     leaveFrom="transform scale-100 opacity-100"
                     leaveTo="transform scale-95 opacity-0"
                   >
-                    <MenuItems className="absolute right-0 z-[60] mt-2 w-32 rounded-lg bg-white py-1 shadow-lg">
+                    <MenuItems className="absolute right-7 z-[999] mt-2 inline-block w-32 rounded-lg bg-white py-1 shadow-lg">
                       <MenuItem>
                         {() => (
                           <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm font-semibold text-gray-800">
@@ -275,7 +283,7 @@ function Shipments() {
                   </Transition>
                 </Menu>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 

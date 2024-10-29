@@ -13,6 +13,7 @@ import {
   MenuItems,
   Transition,
 } from '@headlessui/react';
+import { motion } from 'framer-motion';
 
 const customerData = [
   {
@@ -168,8 +169,12 @@ function Customers() {
           </div>
 
           {filteredCustomers.map((customer) => (
-            <div
+            <motion.div
               key={customer.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
               className="grid grid-cols-[1fr,2fr,2fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
             >
               <div className="font-medium text-gray-800">{customer.id}</div>
@@ -214,10 +219,9 @@ function Customers() {
                   </Transition>
                 </Menu>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
-
         {filteredCustomers.length === 0 && (
           <div className="mt-8 flex flex-col items-center justify-center rounded-lg bg-white p-8 text-center">
             <h3 className="text-lg font-semibold text-gray-900">

@@ -95,12 +95,7 @@ function Members() {
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="mx-auto">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-8 flex items-center justify-between"
-        >
+        <div className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold text-gray-900">Members</h1>
             <p className="mt-1 text-base text-gray-600">
@@ -110,7 +105,7 @@ function Members() {
           <button className="inline-flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-blue-800">
             <FaPlus /> Add Member
           </button>
-        </motion.div>
+        </div>
 
         {/* Filters */}
         <div className="mb-6 flex items-center gap-4">
@@ -146,7 +141,8 @@ function Members() {
               key={member.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
               className="grid grid-cols-[2fr,2fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
             >
               <div className="font-medium text-gray-800">{member.name}</div>
