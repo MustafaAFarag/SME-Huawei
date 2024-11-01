@@ -15,20 +15,22 @@ function TeamMember({ name, role, image, linkedin }: TeamMemberProps) {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
-      className="flex flex-col items-start rounded-lg border border-gray-300 bg-white p-6 shadow-lg transition duration-300 hover:shadow-2xl"
+      className="hover:border-gradient-to-r flex flex-col items-center rounded-lg border border-transparent bg-white from-blue-500 to-cyan-400 p-6 shadow-lg transition duration-300 hover:shadow-2xl"
     >
-      <img
-        src={image}
-        alt={`${name}'s photo`}
-        className="mb-4 h-24 w-24 rounded-full object-cover"
-      />
-      <h3 className="text-xl font-bold">{name}</h3>
+      <div className="border-gradient-to-br relative mb-4 h-28 w-28 overflow-hidden rounded-full border-4 from-blue-600 to-cyan-300">
+        <img
+          src={image}
+          alt={`${name}'s photo`}
+          className="h-full w-full object-cover"
+        />
+      </div>
+      <h3 className="text-xl font-bold text-gray-800">{name}</h3>
       <p className="text-gray-500">{role}</p>
       <a
         href={linkedin}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-4"
+        className="mt-4 transform transition-transform duration-300 hover:scale-110"
       >
         <FaLinkedin className="text-3xl text-blue-700 hover:text-blue-800" />
       </a>
@@ -48,7 +50,7 @@ function MeetTheTeam() {
       name: 'Mustafa Ashraf',
       role: 'Full Stack Developer',
       image: './mustafa.png',
-      linkedin: 'your_linkedin_url',
+      linkedin: 'https://www.linkedin.com/in/mustafaashrafsaad/',
     },
     {
       name: 'Mohamed Atwan',
@@ -58,21 +60,21 @@ function MeetTheTeam() {
     },
     {
       name: 'Khalid Omar',
-      role: 'AI Engineer',
-      image: './default-user.jpg',
-      linkedin: 'https://www.linkedin.com/in/khaled-profile',
+      role: 'Data Analyst',
+      image: './khalid.png',
+      linkedin: 'https://www.linkedin.com/in/khalid-sedik/',
     },
   ];
 
   return (
-    <section className="py-10">
-      <div className="px-6">
+    <section className="bg-gradient-to-b py-16" id="team">
+      <div className="mx-auto max-w-[100rem] px-6">
         <motion.h2
           initial={{ opacity: 0, y: -50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="mb-16 text-center text-5xl font-bold"
+          className="mb-12 text-center text-5xl font-bold text-gray-800"
         >
           Meet The <span className="text-blue-600">Team</span>
         </motion.h2>
@@ -89,7 +91,7 @@ function MeetTheTeam() {
               },
             },
           }}
-          className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4"
         >
           {teamMembers.map((member, index) => (
             <motion.div
@@ -98,7 +100,7 @@ function MeetTheTeam() {
                 hidden: { opacity: 0, y: 30 },
                 visible: { opacity: 1, y: 0 },
               }}
-              transition={{ duration: 0.5, delay: index * 0.5 }}
+              transition={{ duration: 0.5, delay: index * 0.3 }}
             >
               <TeamMember {...member} />
             </motion.div>

@@ -41,7 +41,7 @@ const ContactUs = () => {
   }
 
   return (
-    <div className="bg-blue-100 px-4 py-12 sm:px-6 lg:px-8">
+    <section className="bg-blue-100 px-4 py-12 sm:px-6 lg:px-8" id="contact">
       <div className="mx-auto max-w-6xl overflow-hidden rounded-2xl bg-white shadow-xl">
         <div className="grid md:grid-cols-2">
           {/* Left side - Contact Information */}
@@ -85,7 +85,7 @@ const ContactUs = () => {
                   />
                   <label
                     htmlFor="firstName"
-                    className="absolute -top-3.5 left-1 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600"
+                    className="absolute -top-5 left-1 text-sm text-teal-500 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-blue-600"
                   >
                     First Name
                   </label>
@@ -104,7 +104,7 @@ const ContactUs = () => {
                   />
                   <label
                     htmlFor="lastName"
-                    className="absolute -top-3.5 left-1 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600"
+                    className="absolute -top-5 left-1 text-sm text-teal-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-blue-600"
                   >
                     Last Name
                   </label>
@@ -125,7 +125,7 @@ const ContactUs = () => {
                   />
                   <label
                     htmlFor="email"
-                    className="absolute -top-3.5 left-1 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600"
+                    className="absolute -top-5 left-1 text-sm text-teal-500 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-blue-600"
                   >
                     Email
                   </label>
@@ -144,7 +144,7 @@ const ContactUs = () => {
                   />
                   <label
                     htmlFor="phone"
-                    className="absolute -top-3.5 left-1 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600"
+                    className="absolute -top-5 left-1 text-sm text-teal-500 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-blue-600"
                   >
                     Phone
                   </label>
@@ -164,7 +164,7 @@ const ContactUs = () => {
                 />
                 <label
                   htmlFor="message"
-                  className="absolute -top-3 left-3 bg-white px-2 text-sm text-gray-600 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3 peer-focus:text-sm peer-focus:text-blue-600"
+                  className="absolute -top-3 left-3 bg-white px-2 text-sm text-teal-500 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3 peer-focus:text-sm peer-focus:text-blue-600"
                 >
                   Message
                 </label>
@@ -183,7 +183,7 @@ const ContactUs = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

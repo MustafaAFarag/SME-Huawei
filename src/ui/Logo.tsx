@@ -5,7 +5,6 @@ function Logo() {
     <Link to="/">
       <div className="flex items-center space-x-2">
         <div className="relative h-10 w-10 overflow-hidden rounded-lg bg-secondary">
-          {/* Placeholder logo design */}
           <div className="absolute inset-0 flex items-center justify-center">
             <span className="text-2xl font-bold text-primary">N</span>
           </div>

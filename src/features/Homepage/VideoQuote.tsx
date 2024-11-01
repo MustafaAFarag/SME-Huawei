@@ -1,6 +1,6 @@
 function VideoQuote() {
   return (
-    <section className="bg-9bbec8 py-16">
+    <section className="bg-9bbec8 py-16" id="about">
       <div className="container mx-auto flex max-w-[100rem] flex-col items-center px-4 md:flex-row">
         <div className="md:w-1/2 md:pr-8">
           <iframe

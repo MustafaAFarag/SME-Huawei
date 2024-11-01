@@ -1,9 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
-import Logo from '../../ui/Logo';
 import Button from '../../ui/Button';
+
+const scrollToSection = (id: string, offset: number = -50) => {
+  const section = document.querySelector(id);
+  if (section) {
+    const sectionTop =
+      section.getBoundingClientRect().top + window.pageYOffset + offset;
+    window.scrollTo({
+      top: sectionTop,
+      behavior: 'smooth',
+    });
+  }
+};
 
 type NavItemProps = {
   href: string;
@@ -13,50 +24,82 @@ type NavItemProps = {
 
 function NavItem({ href, text, isActive }: NavItemProps) {
   return (
-    <a
-      href={href}
-      className={`relative px-3 py-2 text-sm font-medium transition-colors hover:text-secondary ${isActive ? 'text-secondary' : 'text-white'} after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-secondary after:transition-all after:duration-300 hover:after:w-full`}
+    <button
+      onClick={() => scrollToSection(href, -100)}
+      className={`relative px-3 py-2 text-sm font-medium transition-colors ${
+        isActive ? 'text-secondary after:w-full' : 'text-white after:w-0'
+      } after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-secondary after:transition-all after:duration-300 hover:text-secondary`}
     >
       {text}
-    </a>
+    </button>
   );
 }
 
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   const navItems = [
-    { href: '#test', text: 'About' },
-    { href: '#', text: 'Success Stories' },
-    { href: '#', text: 'Solutions' },
-    { href: '#', text: 'Industries' },
-    { href: '#', text: 'Pricing' },
+    { href: '#about', text: 'About' },
+    { href: '#services', text: 'Services' },
+    { href: '#pricing', text: 'Pricing' },
+    { href: '#team', text: 'Team' },
+    { href: '#contact', text: 'Contact Us' },
   ];
+
+  useEffect(() => {
+    const sections = document.querySelectorAll('section');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.6 },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 bg-primary shadow-lg">
       <nav className="container mx-auto px-4 py-4">
-        {/* Desktop Layout */}
         <div className="flex items-center justify-between">
-          {/* Left: Logo */}
           <div className="flex-shrink-0">
-            <Logo />
+            <a className="flex items-center space-x-2" href="#">
+              <div className="relative h-10 w-10 overflow-hidden rounded-lg bg-secondary">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-2xl font-bold text-primary">N</span>
+                </div>
+              </div>
+              <span className="font-heading text-2xl font-bold">
+                <span className="text-white">Nexus</span>
+                <span className="text-secondary">Flow</span>
+              </span>
+            </a>
           </div>
 
-          {/* Center: Navigation Items */}
           <div className="hidden flex-grow justify-center md:flex">
             <div className="flex items-center space-x-6">
               {navItems.map((item) => (
-                <NavItem key={item.text} {...item} />
+                <NavItem
+                  key={item.text}
+                  {...item}
+                  isActive={activeSection === item.href.substring(1)}
+                />
               ))}
             </div>
           </div>
 
-          {/* Right: Get Started Button & Mobile Menu */}
           <div className="flex items-center">
             <div className="hidden md:block">
               <Link to="/signup">
-                <Button label="Contact Us" />
+                <Button label="Get Started" />
               </Link>
             </div>
 
@@ -73,13 +116,15 @@ function Header() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="mt-4 border-t border-white/10 pt-4 md:hidden">
             <div className="flex flex-col space-y-4">
               {navItems.map((item) => (
                 <div key={item.text} className="block">
-                  <NavItem {...item} />
+                  <NavItem
+                    {...item}
+                    isActive={activeSection === item.href.substring(1)}
+                  />
                 </div>
               ))}
               <div className="pt-4">

@@ -11,6 +11,10 @@
   --white-text: #0a1641; /* Text color when white background */
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
 

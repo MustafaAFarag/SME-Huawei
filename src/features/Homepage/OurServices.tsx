@@ -55,7 +55,7 @@ function OurServices() {
   ];
 
   return (
-    <section className="overflow-hidden py-20">
+    <section className="overflow-hidden py-20" id="services">
       <div className="px-6">
         <motion.div
           initial={{ opacity: 0, y: -50 }}

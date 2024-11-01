@@ -52,7 +52,7 @@ function PricingPlans() {
   ];
 
   return (
-    <section className="bg-blue-100 px-4 py-16">
+    <section className="bg-blue-100 px-4 py-16" id="pricing">
       <div className="container mx-auto max-w-[100rem]">
         <h2 className="mb-16 text-center text-6xl font-bold text-primary">
           Our <span className="text-blue-600">Pricing Plans</span>
@@ -95,9 +95,9 @@ function PricingPlans() {
               </ul>
 
               <button
-                className={`mt-auto w-full rounded-lg py-3 font-semibold transition-colors duration-300 ${
+                className={`mt-auto w-full rounded-lg py-3 font-semibold transition-all duration-300 ${
                   plan.recommended
-                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-lg text-white hover:from-blue-700 hover:to-purple-700'
+                    ? 'bg-gradient-to-r from-primary to-secondary text-lg text-white hover:shadow-lg hover:ring-4 hover:ring-cyan-500 hover:ring-opacity-50 hover:ring-offset-4'
                     : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
                 }`}
               >
