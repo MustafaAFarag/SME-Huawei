@@ -41,7 +41,7 @@ const ContactUs = () => {
   }
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 px-4 py-12 sm:px-6 lg:px-8">
+    <div className="bg-blue-100 px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl overflow-hidden rounded-2xl bg-white shadow-xl">
         <div className="grid md:grid-cols-2">
           {/* Left side - Contact Information */}
@@ -55,7 +55,7 @@ const ContactUs = () => {
             <div className="mt-12 space-y-6">
               <div className="flex items-center space-x-4">
                 <FaEnvelope className="h-6 w-6 text-blue-200" />
-                <span>contact@example.com</span>
+                <span>may-x@logistics.com</span>
               </div>
               <div className="flex items-center space-x-4">
                 <FaPhone className="h-6 w-6 text-blue-200" />

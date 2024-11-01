@@ -26,12 +26,11 @@ function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { href: '#', text: 'About' },
+    { href: '#test', text: 'About' },
     { href: '#', text: 'Success Stories' },
     { href: '#', text: 'Solutions' },
     { href: '#', text: 'Industries' },
     { href: '#', text: 'Pricing' },
-    { href: '#', text: 'Contact Us' },
   ];
 
   return (
@@ -57,7 +56,7 @@ function Header() {
           <div className="flex items-center">
             <div className="hidden md:block">
               <Link to="/signup">
-                <Button label="Get Started" />
+                <Button label="Contact Us" />
               </Link>
             </div>
 
@@ -86,7 +85,7 @@ function Header() {
               <div className="pt-4">
                 <Link to="/signup" className="block">
                   <Button
-                    label="Get Started"
+                    label="Contact Us"
                     variant="secondary"
                     size="lg"
                     className="w-full"

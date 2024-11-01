@@ -5,6 +5,7 @@ import Header from '../features/Homepage/Header';
 import Hero from '../features/Homepage/Hero';
 import MeetTheTeam from '../features/Homepage/MeetTheTeam';
 import OurServices from '../features/Homepage/OurServices';
+import PricingPlans from '../features/Homepage/PricingPlans';
 import VideoQuote from '../features/Homepage/VideoQuote';
 
 function Homepage() {
@@ -15,6 +16,7 @@ function Homepage() {
       <VideoQuote />
       <BrandsMarquee />
       <OurServices />
+      <PricingPlans />
       <MeetTheTeam />
       <ContactUs />
       <Footer />

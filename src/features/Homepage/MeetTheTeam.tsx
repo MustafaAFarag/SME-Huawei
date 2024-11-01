@@ -65,7 +65,7 @@ function MeetTheTeam() {
   ];
 
   return (
-    <section className="bg-gray-200 py-10">
+    <section className="py-10">
       <div className="px-6">
         <motion.h2
           initial={{ opacity: 0, y: -50 }}
@@ -98,7 +98,7 @@ function MeetTheTeam() {
                 hidden: { opacity: 0, y: 30 },
                 visible: { opacity: 1, y: 0 },
               }}
-              transition={{ duration: 0.5, delay: index * 0.4 }}
+              transition={{ duration: 0.5, delay: index * 0.5 }}
             >
               <TeamMember {...member} />
             </motion.div>
