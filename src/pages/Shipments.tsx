@@ -18,58 +18,7 @@ import {
   FaEllipsisV,
 } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-
-type ShipmentStatus = 'In Transit' | 'Delivered' | 'Pending' | 'Cancelled';
-type Carrier = 'DHL' | 'FedEx' | 'UPS';
-
-interface Shipment {
-  id: string;
-  status: ShipmentStatus;
-  date: string;
-  carrier: Carrier;
-  origin: string;
-  destination: string;
-  tracking: string;
-}
-
-const shipmentData: Shipment[] = [
-  {
-    id: 'SH001',
-    status: 'In Transit',
-    date: '2024-10-22',
-    carrier: 'DHL',
-    origin: 'New York, NY',
-    destination: 'Los Angeles, CA',
-    tracking: 'DHL7364528',
-  },
-  {
-    id: 'SH002',
-    status: 'Delivered',
-    date: '2024-10-20',
-    carrier: 'FedEx',
-    origin: 'Chicago, IL',
-    destination: 'Miami, FL',
-    tracking: 'FDX8472947',
-  },
-  {
-    id: 'SH003',
-    status: 'Pending',
-    date: '2024-10-25',
-    carrier: 'UPS',
-    origin: 'Seattle, WA',
-    destination: 'Boston, MA',
-    tracking: 'UPS9384756',
-  },
-  {
-    id: 'SH004',
-    status: 'Cancelled',
-    date: '2024-10-18',
-    carrier: 'DHL',
-    origin: 'Austin, TX',
-    destination: 'Denver, CO',
-    tracking: 'DHL2938475',
-  },
-];
+import { Shipment, shipmentData, ShipmentStatus } from '../utils/Datas';
 
 const carriers = ['All', 'DHL', 'FedEx', 'UPS'] as const;
 const statuses = [
@@ -211,7 +160,7 @@ function Shipments() {
 
         {/* Shipments Table */}
         <div className="rounded-lg bg-white shadow-md">
-          <div className="grid grid-cols-[1fr,1fr,2fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
+          <div className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
             <div>Shipment ID</div>
             <div>Status</div>
             <div>Route</div>
@@ -223,17 +172,17 @@ function Shipments() {
           {filteredShipments.map((shipment) => (
             <motion.div
               key={shipment.id}
-              className="grid grid-cols-[1fr,1fr,2fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
+              className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
               variants={fadeIn}
               initial="hidden"
               animate="visible"
               transition={{ duration: 0.3 }}
             >
               <div>
-                <div className="text-lg font-bold text-gray-900">
+                <div className="text-lg font-bold text-primary">
                   {shipment.id}
                 </div>
-                <div className="text-xs text-gray-500">{shipment.tracking}</div>
+                <div className="text-xs text-primary">{shipment.tracking}</div>
               </div>
               <div>
                 <span
@@ -242,18 +191,20 @@ function Shipments() {
                   {shipment.status}
                 </span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <FaMapMarkerAlt className="text-gray-500" />
+              <div className="flex items-center gap-2 text-sm text-primary">
+                <FaMapMarkerAlt className="text-primary" />
                 {shipment.origin} → {shipment.destination}
               </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <FaCalendar className="text-gray-500" />
+              <div className="flex items-center gap-2 text-sm text-primary">
+                <FaCalendar className="text-primary" />
                 {shipment.date}
               </div>
-              <div className="text-sm text-gray-600">{shipment.carrier}</div>
+              <div className="flex items-center text-sm text-primary">
+                {shipment.carrier}
+              </div>
               <div className="flex items-center justify-end">
                 <Menu as="div" className="relative">
-                  <MenuButton className="rounded-full p-2 text-gray-600 hover:bg-gray-100">
+                  <MenuButton className="rounded-full p-2 text-primary hover:bg-gray-100">
                     <FaEllipsisV />
                   </MenuButton>
                   <Transition

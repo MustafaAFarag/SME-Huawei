@@ -8,28 +8,7 @@ import {
   MenuItems,
   Transition,
 } from '@headlessui/react';
-
-const memberData = [
-  { id: 1, name: 'John Doe', email: 'john.doe@example.com', role: 'Admin' },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    email: 'jane.smith@example.com',
-    role: 'Member',
-  },
-  {
-    id: 3,
-    name: 'Alice Johnson',
-    email: 'alice.johnson@example.com',
-    role: 'Member',
-  },
-  {
-    id: 4,
-    name: 'Bob Brown',
-    email: 'bob.brown@example.com',
-    role: 'Moderator',
-  },
-];
+import { memberData } from '../utils/Datas';
 
 const roles = ['All', 'Admin', 'Member', 'Moderator'] as const;
 
@@ -129,10 +108,12 @@ function Members() {
 
         {/* Members Table */}
         <div className="rounded-lg bg-white shadow-md">
-          <div className="grid grid-cols-[2fr,2fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
+          <div className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
             <div>Name</div>
-            <div>Email</div>
+            <div>Department</div>
             <div>Role</div>
+            <div>Location</div>
+            <div>Email</div>
             <div>Actions</div>
           </div>
 
@@ -143,14 +124,16 @@ function Members() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="grid grid-cols-[2fr,2fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
+              className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
             >
-              <div className="font-medium text-gray-800">{member.name}</div>
-              <div className="text-gray-600">{member.email}</div>
-              <div className="text-gray-600">{member.role}</div>
-              <div className="flex items-center justify-end">
+              <p className="text-base text-primary">{member.name}</p>
+              <p className="text-base text-primary">{member.department}</p>
+              <p className="text-base text-primary">{member.role}</p>
+              <p className="test-base text-primary">{member.location}</p>
+              <p className="test-base text-primary">{member.email}</p>
+              <p className="flex items-center justify-end">
                 <Menu as="div" className="relative">
-                  <MenuButton className="rounded-full p-2 text-gray-600 hover:bg-gray-100">
+                  <MenuButton className="rounded-full p-2 text-primary hover:bg-gray-100">
                     <FaEllipsisV />
                   </MenuButton>
                   <Transition
@@ -161,7 +144,7 @@ function Members() {
                     leaveFrom="transform scale-100 opacity-100"
                     leaveTo="transform scale-95 opacity-0"
                   >
-                    <MenuItems className="absolute right-0 z-[60] mt-2 w-40 rounded-lg bg-white py-1 shadow-lg">
+                    <MenuItems className="absolute right-7 z-[999] mt-2 inline-block w-32 rounded-lg bg-white py-1 shadow-lg">
                       <MenuItem>
                         {() => (
                           <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm font-semibold text-gray-800">
@@ -179,7 +162,7 @@ function Members() {
                     </MenuItems>
                   </Transition>
                 </Menu>
-              </div>
+              </p>
             </motion.div>
           ))}
         </div>

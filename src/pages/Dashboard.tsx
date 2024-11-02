@@ -180,9 +180,9 @@ function Dashboard() {
     },
   };
   const RevenueOverView = {
-    '7': 285000,
-    '30': 320034,
-    '90': 403192,
+    '7': 185005.24,
+    '30': 229034.21,
+    '90': 403192.13,
   };
 
   return (
@@ -195,10 +195,10 @@ function Dashboard() {
       <div className="p-8">
         <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-            <p className="mt-1 text-gray-600">
-              Track your logistics performance
-            </p>
+            <h1 className="text-3xl font-bold text-gray-900">
+              {' '}
+              MAY-X Dashboard
+            </h1>
           </div>
           <div className="inline-flex rounded-lg bg-white shadow-sm">
             {['7', '30', '90'].map((days) => (

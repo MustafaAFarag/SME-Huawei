@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Paginator } from 'primereact/paginator';
 import {
   FaPlus,
   FaEdit,
@@ -16,73 +17,7 @@ import {
   MenuItems,
   Transition,
 } from '@headlessui/react';
-
-type Status = 'In Stock' | 'Low Stock' | 'Out of Stock';
-type Category = 'Electronics' | 'Fashion' | 'Home & Living' | 'Beauty';
-
-interface InventoryItem {
-  id: number;
-  name: string;
-  sku: string;
-  category: Category;
-  quantity: number;
-  price: number;
-  status: Status;
-  reorderPoint: number;
-  lastUpdated: string;
-  image: string;
-}
-
-const inventoryData: InventoryItem[] = [
-  {
-    id: 1,
-    name: 'iPhone 14 Pro',
-    sku: 'IP14P-256-GRP',
-    category: 'Electronics',
-    quantity: 50,
-    price: 999.99,
-    status: 'In Stock',
-    reorderPoint: 20,
-    lastUpdated: '2024-03-15',
-    image: './default-user.jpg',
-  },
-  {
-    id: 2,
-    name: 'Nike Air Max 2024',
-    sku: 'NK-AM24-42-BLK',
-    category: 'Fashion',
-    quantity: 8,
-    price: 179.99,
-    status: 'Low Stock',
-    reorderPoint: 10,
-    lastUpdated: '2024-03-14',
-    image: './default-user.jpg',
-  },
-  {
-    id: 3,
-    name: 'Samsung 4K Smart TV',
-    sku: 'SAM-TV55-4K',
-    category: 'Electronics',
-    quantity: 0,
-    price: 699.99,
-    status: 'Out of Stock',
-    reorderPoint: 5,
-    lastUpdated: '2024-03-13',
-    image: './default-user.jpg',
-  },
-  {
-    id: 4,
-    name: 'Leather Sofa Set',
-    sku: 'FRN-SOF-LTH-BRW',
-    category: 'Home & Living',
-    quantity: 12,
-    price: 1299.99,
-    status: 'In Stock',
-    reorderPoint: 4,
-    lastUpdated: '2024-03-15',
-    image: './default-user.jpg',
-  },
-];
+import { inventoryData, InventoryItem, Status } from '../utils/Datas';
 
 const categories = [
   'All',
@@ -91,8 +26,9 @@ const categories = [
   'Home & Living',
   'Beauty',
 ] as const;
-
 const statuses = ['All', 'In Stock', 'Low Stock', 'Out of Stock'] as const;
+
+const ITEMS_PER_PAGE = 7;
 
 const FilterDropdown = ({
   options,
@@ -141,6 +77,7 @@ function Inventory() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedStatus, setSelectedStatus] = useState('All');
+  const [currentPage, setCurrentPage] = useState(0);
 
   const getStatusColor = (status: Status): string => {
     switch (status) {
@@ -169,6 +106,21 @@ function Inventory() {
   const lowStockItems = inventory.filter(
     (item) => item.status === 'Low Stock' || item.status === 'Out of Stock',
   ).length;
+
+  // Pagination logic
+  const startIndex = currentPage * ITEMS_PER_PAGE;
+  const visibleInventory = filteredInventory.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE,
+  );
+
+  console.log(visibleInventory);
+  console.log(filteredInventory);
+  console.log(inventory);
+
+  const onPageChange = (event: any) => {
+    setCurrentPage(event.page);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
@@ -215,41 +167,27 @@ function Inventory() {
 
         {/* Inventory Table */}
         <div className="relative z-0 rounded-lg bg-white shadow-md">
-          <div className="grid grid-cols-[1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
-            <div>Image</div>
-            <div>Product Info</div>
-            <div>Quantity</div>
-            <div>Status</div>
-            <div>Actions</div>
+          <div className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
+            <p>Product ID</p>
+            <p>Product Name</p>
+            <p>Status</p>
+            <p>SKU</p>
+            <p>Quantity</p>
+            <p>Actions</p>
           </div>
 
-          {filteredInventory.map((item, index) => (
+          {visibleInventory.map((item, index) => (
             <motion.div
               key={item.id}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, x: -10 }}
               transition={{ duration: 0.2, delay: index * 0.05 }}
-              className="relative grid grid-cols-[1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
+              className="relative grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
             >
-              <div>
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="h-12 w-12 rounded-lg object-cover"
-                />
-              </div>
-              <div>
-                <p className="text-lg font-bold text-gray-900">{item.name}</p>
-                <p className="text-sm text-gray-500">SKU: {item.sku}</p>
-              </div>
-              <div className="flex items-center gap-5">
-                <p className="text-base text-primary">{item.quantity}</p>
-                {item.quantity <= item.reorderPoint && (
-                  <p className="flex items-center text-sm text-yellow-600">
-                    <FaExclamationTriangle className="mr-1" /> Reorder needed
-                  </p>
-                )}
+              <div className="text-base font-bold text-primary">{item.id}</div>
+              <div className="text-base font-bold text-primary">
+                {item.name}
               </div>
               <div>
                 <span
@@ -258,9 +196,19 @@ function Inventory() {
                   {item.status}
                 </span>
               </div>
+              <div className="text-base text-primary">{item.sku}</div>
+              <div className="flex items-center gap-5">
+                <p className="text-base text-primary">{item.quantity}</p>
+                {item.quantity <= item.reorderPoint && (
+                  <p className="flex items-center text-sm text-yellow-600">
+                    <FaExclamationTriangle className="mr-1" /> Reorder needed
+                  </p>
+                )}
+              </div>
+
               <div className="flex items-center justify-end">
                 <Menu as="div" className="relative">
-                  <MenuButton className="static z-0 rounded-full p-2 text-gray-600 hover:bg-gray-100">
+                  <MenuButton className="rounded-full p-2 text-gray-600 hover:bg-gray-100">
                     <FaEllipsisV />
                   </MenuButton>
                   <Transition
@@ -293,8 +241,22 @@ function Inventory() {
             </motion.div>
           ))}
         </div>
+
+        {/* Pagination */}
+        <Paginator
+          first={currentPage * ITEMS_PER_PAGE}
+          rows={ITEMS_PER_PAGE}
+          totalRecords={filteredInventory.length}
+          onPageChange={onPageChange}
+          className="mt-4 p-2 text-base"
+          template="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
+          leftContent={
+            <span className="text-base">{currentPage + 1} of 4</span>
+          }
+        />
       </div>
     </div>
   );
 }
+
 export default Inventory;

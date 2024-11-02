@@ -58,7 +58,7 @@ function AppHeader() {
         {/* Profile Menu */}
         <Menu as="div" className="relative">
           <MenuButton className="flex items-center space-x-2 rounded-md bg-transparent p-2 transition-all duration-300 hover:bg-gray-200">
-            <img src="./default-user.jpg" className="h-8 w-8 rounded-full" />
+            <img src="./mustafa.png" className="h-8 w-8 rounded-full" />
             <span className="font-bold">Mustafa Ashraf</span>
           </MenuButton>
           <Transition
