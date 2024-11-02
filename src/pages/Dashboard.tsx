@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   AreaChart,
   Area,
@@ -15,35 +15,61 @@ import { FaShoppingCart, FaUsers, FaBoxes, FaTruck } from 'react-icons/fa';
 import { IconType } from 'react-icons';
 import { motion } from 'framer-motion';
 
-type Timeframe = '7' | '30' | '90';
+function generateRandomSalesData(
+  days: number,
+): { name: string; value: number }[] {
+  const data = [];
+  for (let i = 1; i <= days; i++) {
+    const randomValue = Math.floor(Math.random() * (35000 - 15000 + 1)) + 15000;
+    data.push({ name: `Day ${i}`, value: randomValue });
+  }
+  return data;
+}
 
-const salesData: Record<Timeframe, { name: string; value: number }[]> = {
-  '7': [
-    { name: 'Day 1', value: 15000 },
-    { name: 'Day 2', value: 18000 },
-    { name: 'Day 3', value: 22000 },
-    { name: 'Day 4', value: 19000 },
-    { name: 'Day 5', value: 25000 },
-    { name: 'Day 6', value: 28000 },
-    { name: 'Day 7', value: 30000 },
-  ],
-  '30': [
-    { name: 'Week 1', value: 15000 },
-    { name: 'Week 2', value: 18000 },
-    { name: 'Week 3', value: 22000 },
-    { name: 'Week 4', value: 19000 },
-    { name: 'Week 5', value: 25000 },
-    { name: 'Week 6', value: 28000 },
-    { name: 'Week 7', value: 30000 },
-    { name: 'Week 8', value: 32000 },
-    { name: 'Week 9', value: 35000 },
-    { name: 'Week 10', value: 38000 },
-  ],
-  '90': [
-    { name: 'Month 1', value: 50000 },
-    { name: 'Month 2', value: 60000 },
-    { name: 'Month 3', value: 70000 },
-  ],
+type Timeframe = '7' | '30' | '90';
+type ViewOption = 'daily' | 'weekly' | 'monthly';
+
+const salesData: Record<
+  ViewOption,
+  Record<Timeframe, { name: string; value: number }[]>
+> = {
+  daily: {
+    '7': generateRandomSalesData(7), // Daily data for 7 days
+    '30': generateRandomSalesData(30), // Daily data for 30 days
+    '90': generateRandomSalesData(90), // Daily data for 90 days
+  },
+  weekly: {
+    '7': [], // Disable weekly for 7 days
+    '30': [
+      { name: 'Week 1', value: 15000 },
+      { name: 'Week 2', value: 18000 },
+      { name: 'Week 3', value: 22000 },
+      { name: 'Week 4', value: 19000 },
+    ], // Weekly data for 30 days
+    '90': [
+      { name: 'Week 1', value: 15000 },
+      { name: 'Week 2', value: 18000 },
+      { name: 'Week 3', value: 22000 },
+      { name: 'Week 4', value: 19000 },
+      { name: 'Week 5', value: 21000 },
+      { name: 'Week 6', value: 20000 },
+      { name: 'Week 7', value: 23000 },
+      { name: 'Week 8', value: 24000 },
+      { name: 'Week 9', value: 25000 },
+      { name: 'Week 10', value: 26000 },
+      { name: 'Week 11', value: 27000 },
+      { name: 'Week 12', value: 28000 },
+    ], // Weekly data for 90 days
+  },
+  monthly: {
+    '7': [], // Disable monthly for 7 days
+    '30': [], // Disable monthly for 30 days
+    '90': [
+      { name: 'Month 1', value: 50000 },
+      { name: 'Month 2', value: 60000 },
+      { name: 'Month 3', value: 70000 },
+    ], // Monthly data for 90 days
+  },
 };
 
 const categoryBreakdown: Record<
@@ -121,9 +147,17 @@ const DashboardStat = ({
 
 function Dashboard() {
   const [timeframe, setTimeframe] = useState<Timeframe>('7');
+  const [viewOption, setViewOption] = useState<ViewOption>('daily');
 
-  const currentSalesData = salesData[timeframe];
+  const currentSalesData = salesData[viewOption][timeframe];
   const currentCategoryData = categoryBreakdown[timeframe];
+
+  useEffect(
+    function () {
+      setViewOption('daily');
+    },
+    [timeframe],
+  );
 
   const dashboardStats = {
     '7': {
@@ -226,12 +260,48 @@ function Dashboard() {
                 {formatNumberWithCommas(RevenueOverView[timeframe])}
               </p>
             </div>
+            <select
+              value={viewOption}
+              onChange={(e) => setViewOption(e.target.value as ViewOption)}
+              className="cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-100 p-2 text-gray-700 transition-colors duration-200 ease-in-out focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option className="bg-white text-gray-700" value="daily">
+                Daily
+              </option>
+              <option
+                value="weekly"
+                disabled={timeframe === '7'}
+                className="bg-white text-gray-700 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400"
+              >
+                Weekly
+              </option>
+              <option
+                className="bg-white text-gray-700 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400"
+                value="monthly"
+                disabled={timeframe === '7' || timeframe === '30'}
+              >
+                Monthly
+              </option>
+            </select>
           </div>
+
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={currentSalesData}>
+              <AreaChart
+                data={currentSalesData}
+                margin={{ top: 10, right: 30, left: 20, bottom: 0 }} // Adjust margins
+              >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
+                <XAxis
+                  dataKey="name"
+                  interval={
+                    viewOption === 'weekly' || viewOption == 'monthly'
+                      ? 0
+                      : currentSalesData.length === 7
+                        ? 0
+                        : 4
+                  }
+                />
                 <YAxis />
                 <Tooltip />
                 <defs>
