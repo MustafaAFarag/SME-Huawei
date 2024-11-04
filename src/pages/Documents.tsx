@@ -8,33 +8,8 @@ import {
 } from '@headlessui/react';
 import { FaEdit, FaTrash, FaPlus, FaEllipsisV, FaSearch } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-
-const documentData = [
-  {
-    id: 'DOC001',
-    name: 'Invoice October',
-    type: 'Invoice',
-    date: '2024-10-20',
-  },
-  {
-    id: 'DOC002',
-    name: 'Shipment Receipt',
-    type: 'Shipment',
-    date: '2024-10-22',
-  },
-  {
-    id: 'DOC003',
-    name: 'Order Confirmation',
-    type: 'Order',
-    date: '2024-10-18',
-  },
-  {
-    id: 'DOC004',
-    name: 'Product Catalogue',
-    type: 'Catalog',
-    date: '2024-10-25',
-  },
-];
+import { documentData } from '../utils/Datas';
+import { Paginator } from 'primereact/paginator';
 
 const documentTypes = [
   'All',
@@ -48,6 +23,12 @@ function Documents() {
   const [documents] = useState(documentData);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState('All');
+  const [first, setFirst] = useState(0); // Pagination start index
+  const [rows] = useState(7); // Rows per page
+
+  const onPageChange = (e: any) => {
+    setFirst(e.first);
+  };
 
   const filteredDocuments = documents.filter((doc) => {
     const matchesSearch =
@@ -58,6 +39,21 @@ function Documents() {
 
     return matchesSearch && matchesType;
   });
+
+  const paginatedDocuments = filteredDocuments.slice(first, first + rows);
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'Signed':
+        return 'bg-green-200 text-green-900';
+      case 'Pending':
+        return 'bg-yellow-200 text-yellow-900';
+      case 'Cancelled':
+        return 'bg-red-200 text-red-900';
+      default:
+        return 'bg-gray-200 text-gray-900';
+    }
+  };
 
   const FilterDropdown = ({
     options,
@@ -85,9 +81,9 @@ function Documents() {
         <MenuItems className="absolute right-0 z-50 mt-2 w-40 rounded-lg bg-white py-1 shadow-lg">
           {options.map((option) => (
             <MenuItem key={option}>
-              {({ active }) => (
+              {() => (
                 <button
-                  className={`${active ? 'bg-gray-100' : ''} w-full px-4 py-2 text-left text-sm font-semibold text-gray-800`}
+                  className="w-full px-4 py-2 text-left text-sm font-semibold text-gray-800"
                   onClick={() => onChange(option)}
                 >
                   {option}
@@ -137,25 +133,35 @@ function Documents() {
 
       {/* Documents Table */}
       <div className="rounded-lg bg-white shadow-md">
-        <div className="grid grid-cols-[1fr,2fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
-          <div>Document ID</div>
-          <div>Name</div>
-          <div>Type</div>
-          <div>Actions</div>
+        <div className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
+          <p>Document ID</p>
+          <p>Name</p>
+          <p>Company</p>
+          <p>PDF</p>
+          <p>Status</p>
+          <p>Actions</p>
         </div>
 
-        {filteredDocuments.map((doc) => (
+        {paginatedDocuments.map((doc) => (
           <motion.div
             key={doc.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="grid grid-cols-[1fr,2fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
+            className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
           >
             <div className="font-medium text-gray-800">{doc.id}</div>
             <div className="font-medium text-gray-800">{doc.name}</div>
-            <div className="text-gray-600">{doc.type}</div>
+            <div className="text-gray-600">{doc.associatedCompany}</div>
+            <div className="font-medium text-gray-800">{doc.name}</div>
+            <div>
+              <span
+                className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getStatusColor(doc.status)}`}
+              >
+                {doc.status}
+              </span>
+            </div>
             <div className="flex items-center justify-end">
               <Menu as="div" className="relative">
                 <MenuButton className="rounded-full p-2 text-gray-600 hover:bg-gray-100">
@@ -169,21 +175,17 @@ function Documents() {
                   leaveFrom="transform scale-100 opacity-100"
                   leaveTo="transform scale-95 opacity-0"
                 >
-                  <MenuItems className="absolute right-0 z-[60] mt-2 w-32 rounded-lg bg-white py-1 shadow-lg">
+                  <MenuItems className="absolute right-7 z-[999] mt-2 inline-block w-32 rounded-lg bg-white py-1 shadow-lg">
                     <MenuItem>
-                      {({ active }) => (
-                        <button
-                          className={`flex w-full items-center gap-2 px-4 py-2 text-left text-sm font-semibold text-gray-800 ${active ? 'bg-gray-100' : ''}`}
-                        >
+                      {() => (
+                        <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm font-semibold text-gray-800">
                           <FaEdit className="text-blue-700" /> Edit
                         </button>
                       )}
                     </MenuItem>
                     <MenuItem>
-                      {({ active }) => (
-                        <button
-                          className={`flex w-full items-center gap-2 px-4 py-2 text-left text-sm font-semibold text-gray-800 ${active ? 'bg-gray-100' : ''}`}
-                        >
+                      {() => (
+                        <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm font-semibold text-gray-800">
                           <FaTrash className="text-red-700" /> Delete
                         </button>
                       )}
@@ -206,6 +208,22 @@ function Documents() {
           </div>
         )}
       </div>
+
+      {/* Pagination */}
+      <Paginator
+        first={first}
+        rows={rows}
+        totalRecords={filteredDocuments.length}
+        onPageChange={onPageChange}
+        className="mt-4 p-2 text-base"
+        template="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
+        leftContent={
+          <span className="text-base">
+            Page {Math.floor(first / rows) + 1} of{' '}
+            {Math.ceil(filteredDocuments.length / rows)}
+          </span>
+        }
+      />
     </div>
   );
 }

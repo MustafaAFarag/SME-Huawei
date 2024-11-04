@@ -15,7 +15,7 @@ const menuItems = [
   { icon: FiBarChart2, text: 'Dashboard', link: '/dashboard' },
   { icon: FiPackage, text: 'Inventory', link: '/inventory' },
   { icon: FiTruck, text: 'Shipments', link: '/shipments' },
-  { icon: FiUsers, text: 'Customers', link: '/customers' },
+  { icon: FiUsers, text: 'Suppliers', link: '/suppliers' },
   { icon: FiFileText, text: 'Documents', link: '/documents' },
   { icon: FiCreditCard, text: 'Invoices', link: '/invoices' },
   { icon: FiUsers, text: 'Members', link: '/members' },

@@ -14,37 +14,8 @@ import {
   Transition,
 } from '@headlessui/react';
 import { motion } from 'framer-motion';
-
-const customerData = [
-  {
-    id: 'C001',
-    name: 'John Doe',
-    email: 'john@example.com',
-    phone: '123-456-7890',
-    status: 'Active',
-  },
-  {
-    id: 'C002',
-    name: 'Jane Smith',
-    email: 'jane@example.com',
-    phone: '098-765-4321',
-    status: 'Inactive',
-  },
-  {
-    id: 'C003',
-    name: 'Michael Brown',
-    email: 'michael@example.com',
-    phone: '555-123-4567',
-    status: 'Active',
-  },
-  {
-    id: 'C004',
-    name: 'Emily Davis',
-    email: 'emily@example.com',
-    phone: '444-555-6666',
-    status: 'Pending',
-  },
-];
+import { customerData } from '../utils/Datas';
+import { Paginator } from 'primereact/paginator';
 
 type CustomerStatus = 'Active' | 'Inactive' | 'Pending';
 type FilterStatus = CustomerStatus | 'All';
@@ -56,10 +27,14 @@ function Customers() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<FilterStatus>('All');
 
+  // Pagination states
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(7);
+
   const filteredCustomers = customers.filter((customer) => {
     const matchesSearch =
       customer.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      customer.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       customer.email.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesStatus =
@@ -67,6 +42,14 @@ function Customers() {
 
     return matchesSearch && matchesStatus;
   });
+
+  const totalRecords = filteredCustomers.length;
+  const paginatedCustomers = filteredCustomers.slice(first, first + rows);
+
+  const handlePageChange = (event: { first: number; rows: number }) => {
+    setFirst(event.first);
+    setRows(event.rows);
+  };
 
   const getStatusColor = (status: FilterStatus): string => {
     switch (status) {
@@ -128,9 +111,9 @@ function Customers() {
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900">Customers</h1>
+            <h1 className="text-4xl font-bold text-gray-900">Suppliers</h1>
             <p className="mt-1 text-base text-gray-600">
-              {customers.length} total customers
+              {customers.length} total suppliers
             </p>
           </div>
           <button className="inline-flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-blue-800">
@@ -160,26 +143,33 @@ function Customers() {
 
         {/* Customers Table */}
         <div className="rounded-lg bg-white shadow-md">
-          <div className="grid grid-cols-[1fr,2fr,2fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
-            <div>Customer ID</div>
-            <div>Name</div>
-            <div>Email</div>
-            <div>Status</div>
-            <div>Actions</div>
+          <div className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-primary">
+            <p>Customer ID</p>
+            <p>Company Name</p>
+            <p>Industry</p>
+            <p>Email</p>
+            <p>Status</p>
+            <p>Total Orders</p>
+            <p>Actions</p>
           </div>
 
-          {filteredCustomers.map((customer) => (
+          {paginatedCustomers.map((customer) => (
             <motion.div
               key={customer.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="grid grid-cols-[1fr,2fr,2fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
+              className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-primary hover:bg-gray-50"
             >
-              <div className="font-medium text-gray-800">{customer.id}</div>
-              <div className="font-medium text-gray-800">{customer.name}</div>
-              <div className="text-gray-600">{customer.email}</div>
+              <div className="font-medium text-primary">{customer.id}</div>
+              <div className="font-medium text-primary">
+                {customer.companyName}
+              </div>
+              <div className="font-medium text-primary">
+                {customer.customerType}
+              </div>
+              <div className="text-primary">{customer.email}</div>
               <div>
                 <span
                   className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getStatusColor(customer.status as CustomerStatus)}`}
@@ -187,9 +177,12 @@ function Customers() {
                   {customer.status}
                 </span>
               </div>
+              <div className="font-medium text-gray-800">
+                {customer.totalOrders}
+              </div>
               <div className="flex items-center justify-end">
                 <Menu as="div" className="relative">
-                  <MenuButton className="rounded-full p-2 text-gray-600 hover:bg-gray-100">
+                  <MenuButton className="rounded-full p-2 text-primary hover:bg-gray-100">
                     <FaEllipsisV />
                   </MenuButton>
                   <Transition
@@ -200,7 +193,7 @@ function Customers() {
                     leaveFrom="transform scale-100 opacity-100"
                     leaveTo="transform scale-95 opacity-0"
                   >
-                    <MenuItems className="absolute right-0 z-50 mt-2 w-40 rounded-lg bg-white py-1 shadow-lg">
+                    <MenuItems className="absolute right-7 z-[999] mt-2 inline-block w-32 rounded-lg bg-white py-1 shadow-lg">
                       <MenuItem>
                         {() => (
                           <button className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm font-semibold text-gray-800">
@@ -232,6 +225,25 @@ function Customers() {
             </p>
           </div>
         )}
+
+        {/* Pagination */}
+
+        <div className="mt-6">
+          <Paginator
+            first={first}
+            rows={rows}
+            totalRecords={totalRecords}
+            onPageChange={handlePageChange}
+            className="mt-4 p-2 text-base"
+            template="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
+            leftContent={
+              <span className="text-base">
+                Page {Math.floor(first / rows) + 1} of{' '}
+                {Math.ceil(filteredCustomers.length / rows)}
+              </span>
+            }
+          />
+        </div>
       </div>
     </div>
   );

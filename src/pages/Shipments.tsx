@@ -19,6 +19,7 @@ import {
 } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { Shipment, shipmentData, ShipmentStatus } from '../utils/Datas';
+import { Paginator } from 'primereact/paginator';
 
 const carriers = ['All', 'DHL', 'FedEx', 'UPS'] as const;
 const statuses = [
@@ -39,6 +40,8 @@ function Shipments() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCarrier, setSelectedCarrier] = useState('All');
   const [selectedStatus, setSelectedStatus] = useState('All');
+  const [first, setFirst] = useState(0); // Start index of pagination
+  const [rows] = useState(6); // Number of rows per page
 
   const getStatusColor = (status: ShipmentStatus): string => {
     switch (status) {
@@ -66,12 +69,11 @@ function Shipments() {
     return matchesSearch && matchesCarrier && matchesStatus;
   });
 
-  const notDelivered = shipments.filter(
-    (shipment) =>
-      shipment.status === 'In Transit' ||
-      shipment.status === 'Pending' ||
-      shipment.status === 'Cancelled',
-  ).length;
+  const currentShipments = filteredShipments.slice(first, first + rows);
+
+  const onPageChange = (e: any) => {
+    setFirst(e.first);
+  };
 
   const FilterDropdown = ({
     options,
@@ -123,7 +125,8 @@ function Shipments() {
           <div>
             <h1 className="text-4xl font-bold text-gray-900">Shipments</h1>
             <p className="mt-1 text-base text-gray-600">
-              {shipments.length} total shipments · {notDelivered} still in
+              {shipments.length} total shipments ·{' '}
+              {filteredShipments.length - currentShipments.length} still in
               progress
             </p>
           </div>
@@ -144,6 +147,7 @@ function Shipments() {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
+          {/* Filter Dropdown */}
           <FilterDropdown
             options={carriers}
             value={selectedCarrier}
@@ -169,7 +173,7 @@ function Shipments() {
             <div>Actions</div>
           </div>
 
-          {filteredShipments.map((shipment) => (
+          {currentShipments.map((shipment) => (
             <motion.div
               key={shipment.id}
               className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
@@ -249,6 +253,22 @@ function Shipments() {
             </p>
           </div>
         )}
+
+        {/* Pagination */}
+        <Paginator
+          first={first}
+          rows={rows}
+          totalRecords={filteredShipments.length}
+          onPageChange={onPageChange}
+          className="mt-4 p-2 text-base"
+          template="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
+          leftContent={
+            <span className="text-base">
+              Page {Math.floor(first / rows) + 1} of{' '}
+              {Math.ceil(filteredShipments.length / rows)}
+            </span>
+          }
+        />
       </div>
     </div>
   );

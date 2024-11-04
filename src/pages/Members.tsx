@@ -8,14 +8,30 @@ import {
   MenuItems,
   Transition,
 } from '@headlessui/react';
+import { Paginator } from 'primereact/paginator'; // Import Paginator
 import { memberData } from '../utils/Datas';
 
 const roles = ['All', 'Admin', 'Member', 'Moderator'] as const;
+
+const getRoleColor = (role: string) => {
+  switch (role) {
+    case 'Admin':
+      return 'bg-red-200 text-red-900'; // Admins - Red
+    case 'Member':
+      return 'bg-green-200 text-green-900'; // Members - Green
+    case 'Moderator':
+      return 'bg-blue-200 text-blue-900'; // Moderators - Blue
+    default:
+      return 'bg-gray-200 text-gray-900'; // Default - Gray for 'All' or unknown roles
+  }
+};
 
 function Members() {
   const [members] = useState(memberData);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRole, setSelectedRole] = useState('All');
+  const [first, setFirst] = useState(0); // Tracks the first index of the current page
+  const [rows] = useState(7); // Number of members to display per page
 
   const filteredMembers = members.filter((member) => {
     const matchesSearch =
@@ -26,6 +42,10 @@ function Members() {
 
     return matchesSearch && matchesRole;
   });
+
+  const handlePageChange = (event: any) => {
+    setFirst(event.first);
+  };
 
   const FilterDropdown = ({
     options,
@@ -78,7 +98,7 @@ function Members() {
           <div>
             <h1 className="text-4xl font-bold text-gray-900">Members</h1>
             <p className="mt-1 text-base text-gray-600">
-              {members.length} total members
+              {filteredMembers.length} total members
             </p>
           </div>
           <button className="inline-flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-blue-800">
@@ -117,7 +137,7 @@ function Members() {
             <div>Actions</div>
           </div>
 
-          {filteredMembers.map((member) => (
+          {filteredMembers.slice(first, first + rows).map((member) => (
             <motion.div
               key={member.id}
               initial={{ opacity: 0, y: 20 }}
@@ -128,7 +148,13 @@ function Members() {
             >
               <p className="text-base text-primary">{member.name}</p>
               <p className="text-base text-primary">{member.department}</p>
-              <p className="text-base text-primary">{member.role}</p>
+              <div>
+                <span
+                  className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getRoleColor(member.role)}`}
+                >
+                  {member.role}
+                </span>
+              </div>
               <p className="test-base text-primary">{member.location}</p>
               <p className="test-base text-primary">{member.email}</p>
               <p className="flex items-center justify-end">
@@ -165,18 +191,36 @@ function Members() {
               </p>
             </motion.div>
           ))}
+
+          {filteredMembers.length === 0 && (
+            <div className="mt-8 flex flex-col items-center justify-center rounded-lg bg-white p-8 text-center">
+              <h3 className="text-lg font-semibold text-gray-900">
+                No members found
+              </h3>
+              <p className="mt-1 text-gray-500">
+                Try adjusting your search or filter criteria.
+              </p>
+            </div>
+          )}
         </div>
 
-        {filteredMembers.length === 0 && (
-          <div className="mt-8 flex flex-col items-center justify-center rounded-lg bg-white p-8 text-center">
-            <h3 className="text-lg font-semibold text-gray-900">
-              No members found
-            </h3>
-            <p className="mt-1 text-gray-500">
-              Try adjusting your search or filter criteria.
-            </p>
-          </div>
-        )}
+        {/* Pagination */}
+        <div className="mt-6">
+          <Paginator
+            first={first}
+            rows={rows}
+            totalRecords={filteredMembers.length}
+            onPageChange={handlePageChange}
+            className="mt-4 p-2 text-base"
+            template="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
+            leftContent={
+              <span className="text-base">
+                Page {Math.floor(first / rows) + 1} of
+                {Math.ceil(filteredMembers.length / rows)}
+              </span>
+            }
+          />
+        </div>
       </div>
     </div>
   );

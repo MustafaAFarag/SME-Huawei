@@ -36,7 +36,7 @@ function AppLayoutReal() {
       {/* Main Content */}
       <div className="flex flex-1 flex-col">
         <AppHeader />
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-hidden p-6">
           <Outlet />
         </main>
       </div>

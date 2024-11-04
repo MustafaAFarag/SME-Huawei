@@ -6,39 +6,100 @@ import {
   MenuItems,
   Transition,
 } from '@headlessui/react';
-import { FaEdit, FaTrash, FaPlus, FaSearch, FaEllipsisV } from 'react-icons/fa';
+import {
+  FaEdit,
+  FaTrash,
+  FaPlus,
+  FaSearch,
+  FaEllipsisV,
+  FaChevronDown,
+  FaMapMarkerAlt,
+} from 'react-icons/fa';
 import { motion } from 'framer-motion';
-
-const invoiceData = [
-  { id: 'INV001', customer: 'John Doe', amount: '$500.00', date: '2024-10-22' },
-  {
-    id: 'INV002',
-    customer: 'Jane Smith',
-    amount: '$250.00',
-    date: '2024-10-20',
-  },
-  {
-    id: 'INV003',
-    customer: 'Acme Corp',
-    amount: '$1,200.00',
-    date: '2024-10-18',
-  },
-  {
-    id: 'INV004',
-    customer: 'Global Supplies',
-    amount: '$3,450.00',
-    date: '2024-10-25',
-  },
-];
+import { invoiceData } from '../utils/Datas';
+import { Paginator } from 'primereact/paginator';
 
 function Invoices() {
   const [invoices] = useState(invoiceData);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState('All');
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 7;
+
+  const statuses = ['All', 'Paid', 'Unpaid', 'Overdue', 'Partially Paid'];
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'Paid':
+        return 'bg-green-200 text-green-900';
+      case 'Unpaid':
+        return 'bg-blue-200 text-blue-900';
+      case 'Partially Paid':
+        return 'bg-yellow-200 text-yellow-900';
+      case 'Overdue':
+        return 'bg-red-200 text-red-900';
+      default:
+        return 'bg-gray-200 text-gray-900';
+    }
+  };
 
   const filteredInvoices = invoices.filter(
     (invoice) =>
-      invoice.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      invoice.customer.toLowerCase().includes(searchTerm.toLowerCase()),
+      (searchTerm === '' ||
+        invoice.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        invoice.customer.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      (selectedStatus === 'All' || invoice.status === selectedStatus),
+  );
+
+  const paginatedInvoices = filteredInvoices.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage,
+  );
+
+  const onPageChange = (event: any) => {
+    setCurrentPage(event.page);
+  };
+
+  const FilterDropdown = ({
+    options,
+    value,
+    onChange,
+    label,
+  }: {
+    options: readonly string[];
+    value: string;
+    onChange: (value: string) => void;
+    label: string;
+  }) => (
+    <Menu as="div" className="relative">
+      <MenuButton className="flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50">
+        {label}: {value}
+        <FaChevronDown className="text-gray-500" />
+      </MenuButton>
+      <Transition
+        enter="transition duration-100 ease-out"
+        enterFrom="transform scale-95 opacity-0"
+        enterTo="transform scale-100 opacity-100"
+        leave="transition duration-75 ease-out"
+        leaveFrom="transform scale-100 opacity-100"
+        leaveTo="transform scale-95 opacity-0"
+      >
+        <MenuItems className="absolute right-0 z-50 mt-2 w-40 rounded-lg bg-white py-1 shadow-lg">
+          {options.map((option) => (
+            <MenuItem key={option}>
+              {() => (
+                <button
+                  className="w-full px-4 py-2 text-left text-sm font-semibold text-gray-800"
+                  onClick={() => onChange(option)}
+                >
+                  {option}
+                </button>
+              )}
+            </MenuItem>
+          ))}
+        </MenuItems>
+      </Transition>
+    </Menu>
   );
 
   return (
@@ -56,8 +117,8 @@ function Invoices() {
         </button>
       </div>
 
-      {/* Search Bar */}
-      <div className="mb-6 flex items-center">
+      {/* Filters */}
+      <div className="relative z-10 mb-6 flex items-center gap-4">
         <div className="relative flex-1">
           <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
           <input
@@ -68,31 +129,49 @@ function Invoices() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
+
+        <FilterDropdown
+          options={statuses}
+          value={selectedStatus}
+          onChange={setSelectedStatus}
+          label="Status"
+        />
       </div>
 
       {/* Invoices Table */}
       <div className="rounded-lg bg-white shadow-md">
-        <div className="grid grid-cols-[1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
+        <div className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
           <div>Invoice ID</div>
           <div>Customer</div>
           <div>Date</div>
           <div>Amount</div>
+          <div>Status</div>
           <div>Actions</div>
         </div>
 
-        {filteredInvoices.map((invoice) => (
+        {paginatedInvoices.map((invoice) => (
           <motion.div
             key={invoice.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="grid grid-cols-[1fr,1fr,1fr,1fr,auto] border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
+            className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
           >
-            <div className="font-medium text-gray-800">{invoice.id}</div>
-            <div className="font-medium text-gray-800">{invoice.customer}</div>
-            <div className="text-gray-600">{invoice.date}</div>
+            <div className="font-medium text-primary">{invoice.id}</div>
+            <div className="font-medium text-primary">{invoice.customer}</div>
+            <div className="flex items-center gap-2 text-sm text-primary">
+              <FaMapMarkerAlt className="text-primary" />
+              {invoice.date} → {invoice.dueDate}
+            </div>
             <div className="text-green-500">{invoice.amount}</div>
+            <div>
+              <span
+                className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getStatusColor(invoice.status)}`}
+              >
+                {invoice.status}
+              </span>
+            </div>
             <div className="flex items-center justify-end">
               <Menu as="div" className="relative">
                 <MenuButton className="rounded-full p-2 text-gray-600 hover:bg-gray-100">
@@ -142,6 +221,24 @@ function Invoices() {
             </p>
           </div>
         )}
+      </div>
+
+      {/* Paginator */}
+      <div className="mt-4">
+        <Paginator
+          first={currentPage * itemsPerPage}
+          rows={itemsPerPage}
+          totalRecords={filteredInvoices.length}
+          onPageChange={onPageChange}
+          className="mt-4 p-2 text-base"
+          template="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
+          leftContent={
+            <span className="text-base">
+              Page {Math.floor((currentPage * itemsPerPage) / itemsPerPage) + 1}
+              of {Math.ceil(filteredInvoices.length / itemsPerPage)}
+            </span>
+          }
+        />
       </div>
     </div>
   );
