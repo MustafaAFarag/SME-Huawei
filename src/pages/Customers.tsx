@@ -17,10 +17,15 @@ import { motion } from 'framer-motion';
 import { customerData } from '../utils/Datas';
 import { Paginator } from 'primereact/paginator';
 
-type CustomerStatus = 'Active' | 'Inactive' | 'Pending';
+type CustomerStatus = 'Low Risk' | 'Medium Risk' | 'High Risk';
 type FilterStatus = CustomerStatus | 'All';
 
-const statuses: FilterStatus[] = ['All', 'Active', 'Inactive', 'Pending'];
+const statuses: FilterStatus[] = [
+  'All',
+  'Low Risk',
+  'Medium Risk',
+  'High Risk',
+];
 
 function Customers() {
   const [customers] = useState(customerData);
@@ -38,7 +43,7 @@ function Customers() {
       customer.email.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesStatus =
-      selectedStatus === 'All' || customer.status === selectedStatus;
+      selectedStatus === 'All' || customer.churnRisk === selectedStatus;
 
     return matchesSearch && matchesStatus;
   });
@@ -53,12 +58,12 @@ function Customers() {
 
   const getStatusColor = (status: FilterStatus): string => {
     switch (status) {
-      case 'Active':
+      case 'Low Risk':
         return 'bg-green-200 text-green-900';
-      case 'Inactive':
-        return 'bg-red-200 text-red-900';
-      case 'Pending':
+      case 'Medium Risk':
         return 'bg-yellow-200 text-yellow-900';
+      case 'High Risk':
+        return 'bg-red-200 text-red-900';
       default:
         return 'bg-gray-200 text-gray-900';
     }
@@ -172,9 +177,9 @@ function Customers() {
               </div>
               <div>
                 <span
-                  className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getStatusColor(customer.status as CustomerStatus)} translate-x-4 translate-y-1`}
+                  className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getStatusColor(customer.churnRisk as CustomerStatus)} translate-x-4 translate-y-1`}
                 >
-                  {customer.status}
+                  {customer.churnRisk}
                 </span>
               </div>
               <div className="font-medium text-gray-800">

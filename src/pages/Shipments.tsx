@@ -21,7 +21,13 @@ import { motion } from 'framer-motion';
 import { Shipment, shipmentData, ShipmentStatus } from '../utils/Datas';
 import { Paginator } from 'primereact/paginator';
 
-const carriers = ['All', 'DHL', 'FedEx', 'UPS'] as const;
+const carriers = [
+  'All',
+  'Air Freight',
+  'Sea Freight',
+  'Road Freight',
+  'Rail Freight',
+] as const;
 const statuses = [
   'All',
   'In Transit',
@@ -63,7 +69,7 @@ function Shipments() {
       shipment.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
       shipment.tracking.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCarrier =
-      selectedCarrier === 'All' || shipment.carrier === selectedCarrier;
+      selectedCarrier === 'All' || shipment.mode === selectedCarrier;
     const matchesStatus =
       selectedStatus === 'All' || shipment.status === selectedStatus;
     return matchesSearch && matchesCarrier && matchesStatus;
@@ -152,7 +158,7 @@ function Shipments() {
             options={carriers}
             value={selectedCarrier}
             onChange={setSelectedCarrier}
-            label="Carrier"
+            label="Mode"
           />
           <FilterDropdown
             options={statuses}
@@ -169,7 +175,7 @@ function Shipments() {
             <div>Status</div>
             <div>Route</div>
             <div>Expected Delivery</div>
-            <div>Carrier</div>
+            <div>Mode</div>
             <div>Actions</div>
           </div>
 
@@ -204,7 +210,7 @@ function Shipments() {
                 {shipment.date}
               </div>
               <div className="flex items-center text-sm text-primary">
-                {shipment.carrier}
+                {shipment.mode}
               </div>
               <div className="flex items-center justify-end">
                 <Menu as="div" className="relative">

@@ -200,9 +200,14 @@ function Inventory() {
               <div className="flex items-center gap-5">
                 <p className="text-base text-primary">{item.quantity}</p>
                 {item.quantity <= item.reorderPoint && (
-                  <p className="flex items-center text-sm text-yellow-600">
-                    <FaExclamationTriangle className="mr-1" /> Reorder needed
-                  </p>
+                  <div className="group relative flex items-center text-sm text-yellow-600">
+                    <FaExclamationTriangle className="mr-1" />
+                    <span>Reorder needed</span>
+                    {/* Tooltip */}
+                    <div className="absolute bottom-6 left-1/2 -mb-2 hidden w-max transform whitespace-nowrap rounded-md bg-gray-800 px-2 py-1 text-xs text-white shadow-lg group-hover:block">
+                      Quantity to reorder: {item.reorderPoint - item.quantity}
+                    </div>
+                  </div>
                 )}
               </div>
 
