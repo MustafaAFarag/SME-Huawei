@@ -36,11 +36,6 @@ const statuses = [
   'Cancelled',
 ] as const;
 
-const fadeIn = {
-  hidden: { opacity: 0, y: 10 },
-  visible: { opacity: 1, y: 0 },
-};
-
 function Shipments() {
   const [shipments] = useState<Shipment[]>(shipmentData);
   const [searchTerm, setSearchTerm] = useState('');
@@ -179,14 +174,14 @@ function Shipments() {
             <div>Actions</div>
           </div>
 
-          {currentShipments.map((shipment) => (
+          {currentShipments.map((shipment, index) => (
             <motion.div
               key={shipment.id}
               className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
-              variants={fadeIn}
-              initial="hidden"
-              animate="visible"
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ duration: 0.2, delay: index * 0.05 }}
             >
               <div>
                 <div className="text-lg font-bold text-primary">

@@ -137,13 +137,13 @@ function Members() {
             <div>Actions</div>
           </div>
 
-          {filteredMembers.slice(first, first + rows).map((member) => (
+          {filteredMembers.slice(first, first + rows).map((member, index) => (
             <motion.div
               key={member.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ duration: 0.2, delay: index * 0.05 }}
               className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
             >
               <p className="text-base text-primary">{member.name}</p>

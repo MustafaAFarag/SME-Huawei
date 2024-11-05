@@ -149,13 +149,13 @@ function Invoices() {
           <div>Actions</div>
         </div>
 
-        {paginatedInvoices.map((invoice) => (
+        {paginatedInvoices.map((invoice, index) => (
           <motion.div
             key={invoice.id}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, x: -10 }}
+            transition={{ duration: 0.2, delay: index * 0.05 }}
             className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
           >
             <div className="font-medium text-primary">{invoice.id}</div>

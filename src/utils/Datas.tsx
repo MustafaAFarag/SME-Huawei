@@ -23,7 +23,7 @@ export const inventoryData: InventoryItem[] = [
     quantity: 50,
     price: 999.99,
     status: 'In Stock',
-    reorderPoint: 20,
+    reorderPoint: 80,
     lastUpdated: '2024/03/15',
     logisticsDetail: 'Inbound from China · Expected on 2024/03/20',
   },
@@ -403,7 +403,7 @@ export const customerData = [
     totalOrders: 25,
     lastOrderDate: '15/10/2024',
     creditLimit: 5000,
-    churnRisk: 'Low Risk',
+    badge: 'High Returning',
   },
   {
     id: 'C002',
@@ -415,7 +415,7 @@ export const customerData = [
     totalOrders: 10,
     lastOrderDate: '20/09/2024',
     creditLimit: 10000,
-    churnRisk: 'Medium Risk',
+    badge: 'Low Cost',
   },
   {
     id: 'C003',
@@ -427,7 +427,7 @@ export const customerData = [
     totalOrders: 15,
     lastOrderDate: '01/11/2024',
     creditLimit: 3000,
-    churnRisk: 'Low Risk',
+    badge: 'Fast Delivery',
   },
   {
     id: 'C004',
@@ -439,7 +439,7 @@ export const customerData = [
     totalOrders: 5,
     lastOrderDate: '30/10/2024',
     creditLimit: 1500,
-    churnRisk: 'High Risk',
+    badge: 'High Returning',
   },
   {
     id: 'C005',
@@ -451,7 +451,7 @@ export const customerData = [
     totalOrders: 12,
     lastOrderDate: '10/10/2024',
     creditLimit: 7500,
-    churnRisk: 'Medium Risk',
+    badge: 'Low Cost',
   },
   {
     id: 'C006',
@@ -463,7 +463,7 @@ export const customerData = [
     totalOrders: 8,
     lastOrderDate: '25/09/2024',
     creditLimit: 6000,
-    churnRisk: 'High Risk',
+    badge: 'High Returning',
   },
   {
     id: 'C007',
@@ -475,7 +475,7 @@ export const customerData = [
     totalOrders: 20,
     lastOrderDate: '20/10/2024',
     creditLimit: 9000,
-    churnRisk: 'Low Risk',
+    badge: 'Fast Delivery',
   },
   {
     id: 'C008',
@@ -487,7 +487,7 @@ export const customerData = [
     totalOrders: 3,
     lastOrderDate: '02/11/2024',
     creditLimit: 1200,
-    churnRisk: 'High Risk',
+    badge: 'High Returning',
   },
   {
     id: 'C009',
@@ -499,7 +499,7 @@ export const customerData = [
     totalOrders: 18,
     lastOrderDate: '12/10/2024',
     creditLimit: 8500,
-    churnRisk: 'Low Risk',
+    badge: 'Low Cost',
   },
   {
     id: 'C010',
@@ -511,7 +511,7 @@ export const customerData = [
     totalOrders: 6,
     lastOrderDate: '15/09/2024',
     creditLimit: 3000,
-    churnRisk: 'High Risk',
+    badge: 'Fast Delivery',
   },
 ];
 

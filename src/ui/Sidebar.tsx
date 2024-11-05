@@ -53,11 +53,11 @@ function Sidebar({ className = '' }: { className: string }) {
     <div
       className={`flex h-full w-64 flex-col border-r ${className} bg-primary`}
     >
-      <div className="flex h-16 items-center border-b border-gray-600 px-6">
+      <div className="m-5 flex h-16 items-center justify-center">
         <Logo />
       </div>
 
-      <div className="flex-1 overflow-auto px-3 py-4">
+      <div className="flex-1 overflow-auto border-t border-gray-600 px-3 py-4">
         <NavigationMenu />
       </div>
 

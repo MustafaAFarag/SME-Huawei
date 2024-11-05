@@ -198,7 +198,7 @@ function Inventory() {
               </div>
               <div className="text-base text-primary">{item.sku}</div>
               <div className="flex items-center gap-5">
-                <p className="text-base text-primary">{item.quantity}</p>
+                <p className="w-5 text-base text-primary">{item.quantity}</p>
                 {item.quantity <= item.reorderPoint && (
                   <div className="group relative flex items-center text-sm text-yellow-600">
                     <FaExclamationTriangle className="mr-1" />

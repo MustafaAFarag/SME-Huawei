@@ -71,16 +71,8 @@ function Header() {
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex-shrink-0">
-            <a className="flex items-center space-x-2" href="#">
-              <div className="relative h-10 w-10 overflow-hidden rounded-lg bg-secondary">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-2xl font-bold text-primary">N</span>
-                </div>
-              </div>
-              <span className="font-heading text-2xl font-bold">
-                <span className="text-white">Nexus</span>
-                <span className="text-secondary">Flow</span>
-              </span>
+            <a href="#">
+              <img src="./NexusFlow.png" className="w-32" />
             </a>
           </div>
 

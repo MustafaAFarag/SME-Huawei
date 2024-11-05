@@ -4,7 +4,7 @@ function PricingPlans() {
   const plans = [
     {
       name: 'Basic',
-      price: '800',
+      price: '49.99',
       features: [
         'Inventory management',
         'Demand forecasting',
@@ -18,7 +18,7 @@ function PricingPlans() {
     },
     {
       name: 'Pro',
-      price: '2,500',
+      price: '200',
       features: [
         'All Basic features',
         '50 GB storage',

@@ -17,14 +17,14 @@ import { motion } from 'framer-motion';
 import { customerData } from '../utils/Datas';
 import { Paginator } from 'primereact/paginator';
 
-type CustomerStatus = 'Low Risk' | 'Medium Risk' | 'High Risk';
+type CustomerStatus = 'Low Cost' | 'Fast Delivery' | 'High Returning';
 type FilterStatus = CustomerStatus | 'All';
 
 const statuses: FilterStatus[] = [
   'All',
-  'Low Risk',
-  'Medium Risk',
-  'High Risk',
+  'Low Cost',
+  'Fast Delivery',
+  'High Returning',
 ];
 
 function Customers() {
@@ -43,7 +43,7 @@ function Customers() {
       customer.email.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesStatus =
-      selectedStatus === 'All' || customer.churnRisk === selectedStatus;
+      selectedStatus === 'All' || customer.badge === selectedStatus;
 
     return matchesSearch && matchesStatus;
   });
@@ -58,12 +58,12 @@ function Customers() {
 
   const getStatusColor = (status: FilterStatus): string => {
     switch (status) {
-      case 'Low Risk':
+      case 'Low Cost':
         return 'bg-green-200 text-green-900';
-      case 'Medium Risk':
+      case 'Fast Delivery':
         return 'bg-yellow-200 text-yellow-900';
-      case 'High Risk':
-        return 'bg-red-200 text-red-900';
+      case 'High Returning':
+        return 'bg-blue-200 text-blue-900';
       default:
         return 'bg-gray-200 text-gray-900';
     }
@@ -122,7 +122,7 @@ function Customers() {
             </p>
           </div>
           <button className="inline-flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-blue-800">
-            <FaUserPlus /> Add Customer
+            <FaUserPlus /> Add Supplier
           </button>
         </div>
 
@@ -152,18 +152,18 @@ function Customers() {
             <p>Company Name</p>
             <p>Industry</p>
             <p className="-translate-x-5">Email</p>
-            <p className="translate-x-8">Status</p>
+            <p className="translate-x-8">Badges</p>
             <p>Total Orders</p>
             <p>Actions</p>
           </div>
 
-          {paginatedCustomers.map((customer) => (
+          {paginatedCustomers.map((customer, index) => (
             <motion.div
               key={customer.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ duration: 0.2, delay: index * 0.05 }}
               className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-primary hover:bg-gray-50"
             >
               <div className="font-medium text-primary">
@@ -177,9 +177,9 @@ function Customers() {
               </div>
               <div>
                 <span
-                  className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getStatusColor(customer.churnRisk as CustomerStatus)} translate-x-4 translate-y-1`}
+                  className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getStatusColor(customer.badge as CustomerStatus)} translate-x-4 translate-y-1`}
                 >
-                  {customer.churnRisk}
+                  {customer.badge}
                 </span>
               </div>
               <div className="font-medium text-gray-800">
