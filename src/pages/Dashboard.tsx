@@ -249,12 +249,39 @@ function Dashboard() {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="col-span-2 rounded-lg bg-white p-6 shadow-lg"
           >
-            <h2 className="text-xl font-bold text-gray-900">
-              Revenue Overview
-            </h2>
-            <p className="text-gray-600">
-              Total revenue: ${RevenueOverView[timeframe].toLocaleString()}
-            </p>
+            <div className="mb-6 flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-bold text-gray-900">
+                  Revenue Overview
+                </h2>
+                <p className="text-gray-600">
+                  Total revenue: ${RevenueOverView[timeframe].toLocaleString()}
+                </p>
+              </div>
+              <select
+                value={viewOption}
+                onChange={(e) => setViewOption(e.target.value as ViewOption)}
+                className="cursor-pointer appearance-none rounded-lg border border-gray-300 bg-gray-100 p-2 text-gray-700 transition-colors duration-200 ease-in-out focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option className="bg-white text-gray-700" value="daily">
+                  Daily
+                </option>
+                <option
+                  value="weekly"
+                  disabled={timeframe === '7'}
+                  className="bg-white text-gray-700 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400"
+                >
+                  Weekly
+                </option>
+                <option
+                  className="bg-white text-gray-700 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400"
+                  value="monthly"
+                  disabled={timeframe === '7' || timeframe === '30'}
+                >
+                  Monthly
+                </option>
+              </select>
+            </div>
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={currentSalesData}>
@@ -282,23 +309,30 @@ function Dashboard() {
             <h2 className="text-xl font-bold text-gray-900">
               Category Breakdown
             </h2>
-            <ResponsiveContainer width="100%" height={250}>
+            <ResponsiveContainer width="100%" height={350}>
               <PieChart>
                 <Pie
                   data={currentCategoryData}
                   dataKey="percentage"
                   nameKey="type"
-                  fill="#8884d8"
                   cx="50%"
                   cy="50%"
-                  outerRadius={80}
-                  label
+                  outerRadius={100}
+                  innerRadius={50}
+                  label={({ name, percent }) =>
+                    `${name}: ${(percent * 100).toFixed(0)}%`
+                  }
+                  labelLine={false}
+                  isAnimationActive={true}
                 >
                   {currentCategoryData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip />
+                <Tooltip
+                  formatter={(value: number) => `${value.toFixed(2)}%`}
+                  itemStyle={{ color: '#3B82F6', fontWeight: 'bold' }}
+                />
               </PieChart>
             </ResponsiveContainer>
           </motion.div>
