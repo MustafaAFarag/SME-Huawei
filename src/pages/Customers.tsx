@@ -143,12 +143,11 @@ function Customers() {
 
         {/* Customers Table */}
         <div className="rounded-lg bg-white shadow-md">
-          <div className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-primary">
-            <p>Customer ID</p>
+          <div className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-primary">
             <p>Company Name</p>
             <p>Industry</p>
-            <p>Email</p>
-            <p>Status</p>
+            <p className="-translate-x-5">Email</p>
+            <p className="translate-x-8">Status</p>
             <p>Total Orders</p>
             <p>Actions</p>
           </div>
@@ -160,19 +159,20 @@ function Customers() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-primary hover:bg-gray-50"
+              className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-primary hover:bg-gray-50"
             >
-              <div className="font-medium text-primary">{customer.id}</div>
               <div className="font-medium text-primary">
                 {customer.companyName}
               </div>
               <div className="font-medium text-primary">
                 {customer.customerType}
               </div>
-              <div className="text-primary">{customer.email}</div>
+              <div className="-translate-x-6 text-primary">
+                {customer.email}
+              </div>
               <div>
                 <span
-                  className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getStatusColor(customer.status as CustomerStatus)}`}
+                  className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getStatusColor(customer.status as CustomerStatus)} translate-x-4 translate-y-1`}
                 >
                   {customer.status}
                 </span>

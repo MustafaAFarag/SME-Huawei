@@ -34,7 +34,7 @@ const salesData: Record<
   Record<Timeframe, { name: string; value: number }[]>
 > = {
   daily: {
-    '7': generateRandomSalesData(7), // Daily data for 7 days
+    '7': generateRandomSalesData(7),
     '30': generateRandomSalesData(30), // Daily data for 30 days
     '90': generateRandomSalesData(90), // Daily data for 90 days
   },

@@ -19,10 +19,13 @@ const documentTypes = [
   'Catalog',
 ] as const;
 
+const statuses = ['All', 'Signed', 'Pending', 'Cancelled'] as const;
+
 function Documents() {
   const [documents] = useState(documentData);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState('All');
+  const [selectedStatus, setSelectedStatus] = useState('All');
   const [first, setFirst] = useState(0); // Pagination start index
   const [rows] = useState(7); // Rows per page
 
@@ -36,8 +39,10 @@ function Documents() {
       doc.name.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesType = selectedType === 'All' || doc.type === selectedType;
+    const matchesStatus =
+      selectedStatus === 'All' || doc.status === selectedStatus;
 
-    return matchesSearch && matchesType;
+    return matchesSearch && matchesType && matchesStatus;
   });
 
   const paginatedDocuments = filteredDocuments.slice(first, first + rows);
@@ -129,6 +134,12 @@ function Documents() {
           onChange={setSelectedType}
           label="Type"
         />
+        <FilterDropdown
+          options={statuses}
+          value={selectedStatus}
+          onChange={setSelectedStatus}
+          label="Status"
+        />
       </div>
 
       {/* Documents Table */}
@@ -137,8 +148,8 @@ function Documents() {
           <p>Document ID</p>
           <p>Name</p>
           <p>Company</p>
-          <p>PDF</p>
           <p>Status</p>
+          <p>PDF</p>
           <p>Actions</p>
         </div>
 
@@ -154,7 +165,6 @@ function Documents() {
             <div className="font-medium text-gray-800">{doc.id}</div>
             <div className="font-medium text-gray-800">{doc.name}</div>
             <div className="text-gray-600">{doc.associatedCompany}</div>
-            <div className="font-medium text-gray-800">{doc.name}</div>
             <div>
               <span
                 className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getStatusColor(doc.status)}`}
@@ -162,6 +172,13 @@ function Documents() {
                 {doc.status}
               </span>
             </div>
+            <a
+              className="inline-flex w-24 -translate-x-3 items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition duration-200 hover:bg-blue-700"
+              target="_blank"
+              href={doc.downloadLink}
+            >
+              View PDF
+            </a>
             <div className="flex items-center justify-end">
               <Menu as="div" className="relative">
                 <MenuButton className="rounded-full p-2 text-gray-600 hover:bg-gray-100">
