@@ -31,3 +31,29 @@ h5 {
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
 }
+
+/* Modern scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--secondary);
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: var(--secondary);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 10px;
+  border: 2px solid var(--secondary);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #003580; /* Slightly darker shade for hover effect */
+}
