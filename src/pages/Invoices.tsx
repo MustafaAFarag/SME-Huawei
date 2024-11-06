@@ -141,12 +141,12 @@ function Invoices() {
       {/* Invoices Table */}
       <div className="rounded-lg bg-white shadow-md">
         <div className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
-          <div>Invoice ID</div>
-          <div>Customer</div>
-          <div>Date</div>
-          <div>Amount</div>
-          <div>Status</div>
-          <div>Actions</div>
+          <div className="font-bold text-primary">Invoice ID</div>
+          <div className="font-bold text-primary">Status</div>
+          <div className="font-bold text-primary">Company</div>
+          <div className="font-bold text-primary">Date</div>
+          <div className="font-bold text-primary">Amount</div>
+          <div className="font-bold text-primary">Actions</div>
         </div>
 
         {paginatedInvoices.map((invoice, index) => (
@@ -158,13 +158,7 @@ function Invoices() {
             transition={{ duration: 0.2, delay: index * 0.05 }}
             className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
           >
-            <div className="font-medium text-primary">{invoice.id}</div>
-            <div className="font-medium text-primary">{invoice.customer}</div>
-            <div className="flex items-center gap-2 text-sm text-primary">
-              <FaMapMarkerAlt className="text-primary" />
-              {invoice.date} → {invoice.dueDate}
-            </div>
-            <div className="text-green-500">{invoice.amount}</div>
+            <div className="font-bold text-primary">{invoice.id}</div>
             <div>
               <span
                 className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getStatusColor(invoice.status)}`}
@@ -172,6 +166,12 @@ function Invoices() {
                 {invoice.status}
               </span>
             </div>
+            <div className="font-bold text-primary">{invoice.customer}</div>
+            <div className="flex items-center gap-2 text-sm font-bold text-primary">
+              <FaMapMarkerAlt className="text-primary" />
+              {invoice.date} → {invoice.dueDate}
+            </div>
+            <div className="font-bold text-green-600">{invoice.amount}</div>
             <div className="flex items-center justify-end">
               <Menu as="div" className="relative">
                 <MenuButton className="rounded-full p-2 text-gray-600 hover:bg-gray-100">

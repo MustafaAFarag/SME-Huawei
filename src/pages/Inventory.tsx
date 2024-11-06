@@ -168,12 +168,12 @@ function Inventory() {
         {/* Inventory Table */}
         <div className="relative z-0 rounded-lg bg-white shadow-md">
           <div className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
-            <p>Product ID</p>
-            <p>Product Name</p>
-            <p>Status</p>
-            <p>SKU</p>
-            <p>Quantity</p>
-            <p>Actions</p>
+            <p className="font-bold text-primary">Product ID</p>
+            <p className="font-bold text-primary">Product Name</p>
+            <p className="font-bold text-primary">Status</p>
+            <p className="font-bold text-primary">SKU</p>
+            <p className="font-bold text-primary">Quantity</p>
+            <p className="font-bold text-primary">Actions</p>
           </div>
 
           {visibleInventory.map((item, index) => (
@@ -191,14 +191,16 @@ function Inventory() {
               </div>
               <div>
                 <span
-                  className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getStatusColor(item.status)}`}
+                  className={`inline-flex rounded-full px-3 py-1 text-sm font-bold ${getStatusColor(item.status)}`}
                 >
                   {item.status}
                 </span>
               </div>
-              <div className="text-base text-primary">{item.sku}</div>
+              <div className="text-base font-bold text-primary">{item.sku}</div>
               <div className="flex items-center gap-5">
-                <p className="w-5 text-base text-primary">{item.quantity}</p>
+                <p className="w-5 text-base font-bold text-primary">
+                  {item.quantity}
+                </p>
                 {item.quantity <= item.reorderPoint && (
                   <div className="group relative flex items-center text-sm text-yellow-600">
                     <FaExclamationTriangle className="mr-1" />

@@ -129,12 +129,12 @@ function Members() {
         {/* Members Table */}
         <div className="rounded-lg bg-white shadow-md">
           <div className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
-            <div>Name</div>
-            <div>Department</div>
-            <div>Role</div>
-            <div>Location</div>
-            <div>Email</div>
-            <div>Actions</div>
+            <div className="font-bold text-primary">Name</div>
+            <div className="font-bold text-primary">Department</div>
+            <div className="font-bold text-primary">Role</div>
+            <div className="font-bold text-primary">Location</div>
+            <div className="font-bold text-primary">Email</div>
+            <div className="font-bold text-primary">Actions</div>
           </div>
 
           {filteredMembers.slice(first, first + rows).map((member, index) => (
@@ -146,8 +146,10 @@ function Members() {
               transition={{ duration: 0.2, delay: index * 0.05 }}
               className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
             >
-              <p className="text-base text-primary">{member.name}</p>
-              <p className="text-base text-primary">{member.department}</p>
+              <p className="text-base font-bold text-primary">{member.name}</p>
+              <p className="text-base font-bold text-primary">
+                {member.department}
+              </p>
               <div>
                 <span
                   className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getRoleColor(member.role)}`}
@@ -155,8 +157,10 @@ function Members() {
                   {member.role}
                 </span>
               </div>
-              <p className="test-base text-primary">{member.location}</p>
-              <p className="test-base text-primary">{member.email}</p>
+              <p className="test-base font-bold text-primary">
+                {member.location}
+              </p>
+              <p className="test-base font-bold text-primary">{member.email}</p>
               <p className="flex items-center justify-end">
                 <Menu as="div" className="relative">
                   <MenuButton className="rounded-full p-2 text-primary hover:bg-gray-100">

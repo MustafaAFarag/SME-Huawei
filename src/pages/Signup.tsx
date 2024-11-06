@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import SignupForm from '../features/Signup/SignupForm';
 import SocialSignup from '../features/Signup/SocialSignup';
-import Logo from '../ui/Logo';
 
 // Signup Page
 function Signup() {
@@ -20,7 +19,9 @@ function Signup() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Logo />
+          <Link to="/">
+            <img src="./NexusFlow-removebg.png" className="w-32" />
+          </Link>
         </motion.div>
         <div className="w-full max-w-md space-y-8 rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-lg">
           <div className="text-center">

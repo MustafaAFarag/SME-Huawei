@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 type FormData = {
   fullName: string;
@@ -12,6 +13,7 @@ type FormData = {
 };
 
 function SignupForm() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -26,9 +28,9 @@ function SignupForm() {
   const agreeToTerms = watch('agreeToTerms'); // Watch the agreeToTerms checkbox
 
   const onSubmit = async (data: FormData) => {
-    // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1000));
     console.log(data);
+    navigate('/login');
   };
 
   return (
@@ -51,7 +53,7 @@ function SignupForm() {
           />
           <label
             htmlFor="fullName"
-            className="absolute -top-3.5 left-1 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600"
+            className="absolute -top-3.5 left-1 text-sm text-teal-500 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600"
           >
             Full Name
           </label>
@@ -85,7 +87,7 @@ function SignupForm() {
           />
           <label
             htmlFor="email"
-            className="absolute -top-3.5 left-1 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600"
+            className="absolute -top-3.5 left-1 text-sm text-teal-500 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600"
           >
             Email Address
           </label>
@@ -119,7 +121,7 @@ function SignupForm() {
           />
           <label
             htmlFor="password"
-            className="absolute -top-3.5 left-1 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600"
+            className="absolute -top-3.5 left-1 text-sm text-teal-500 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600"
           >
             Password
           </label>
@@ -155,7 +157,7 @@ function SignupForm() {
             className="peer w-full border-b-2 border-gray-300 bg-transparent py-2 pl-1 text-white placeholder-transparent focus:border-blue-600 focus:outline-none"
             placeholder=" "
           />
-          <label className="absolute -top-3.5 left-1 text-sm text-gray-600 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600">
+          <label className="absolute -top-3.5 left-1 text-sm text-teal-500 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600">
             Confirm Password
           </label>
           <button

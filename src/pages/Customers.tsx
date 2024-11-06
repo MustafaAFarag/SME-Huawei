@@ -149,12 +149,12 @@ function Customers() {
         {/* Customers Table */}
         <div className="rounded-lg bg-white shadow-md">
           <div className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-primary">
-            <p>Company Name</p>
-            <p>Industry</p>
-            <p className="-translate-x-5">Email</p>
-            <p className="translate-x-8">Badges</p>
-            <p>Total Orders</p>
-            <p>Actions</p>
+            <p className="font-bold text-primary">Company Name</p>
+            <p className="font-bold text-primary">Industry</p>
+            <p className="-translate-x-5 font-bold text-primary">Email</p>
+            <p className="translate-x-8 font-bold text-primary">Badges</p>
+            <p className="font-bold text-primary">Total Orders</p>
+            <p className="font-bold text-primary">Actions</p>
           </div>
 
           {paginatedCustomers.map((customer, index) => (
@@ -166,13 +166,13 @@ function Customers() {
               transition={{ duration: 0.2, delay: index * 0.05 }}
               className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-primary hover:bg-gray-50"
             >
-              <div className="font-medium text-primary">
+              <div className="font-bold text-primary">
                 {customer.companyName}
               </div>
-              <div className="font-medium text-primary">
+              <div className="font-bold text-primary">
                 {customer.customerType}
               </div>
-              <div className="-translate-x-6 text-primary">
+              <div className="-translate-x-6 font-bold text-primary">
                 {customer.email}
               </div>
               <div>
@@ -182,7 +182,7 @@ function Customers() {
                   {customer.badge}
                 </span>
               </div>
-              <div className="font-medium text-gray-800">
+              <div className="font-bold text-gray-800">
                 {customer.totalOrders}
               </div>
               <div className="flex items-center justify-end">

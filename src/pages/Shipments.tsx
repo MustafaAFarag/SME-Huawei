@@ -166,12 +166,12 @@ function Shipments() {
         {/* Shipments Table */}
         <div className="rounded-lg bg-white shadow-md">
           <div className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
-            <div>Shipment ID</div>
-            <div>Status</div>
-            <div>Route</div>
-            <div>Expected Delivery</div>
-            <div>Mode</div>
-            <div>Actions</div>
+            <div className="font-bold text-primary">Shipment ID</div>
+            <div className="font-bold text-primary">Status</div>
+            <div className="-translate-x-10 font-bold text-primary">Route</div>
+            <div className="font-bold text-primary">Expected Delivery</div>
+            <div className="font-bold text-primary">Mode</div>
+            <div className="font-bold text-primary">Actions</div>
           </div>
 
           {currentShipments.map((shipment, index) => (
@@ -196,15 +196,15 @@ function Shipments() {
                   {shipment.status}
                 </span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-primary">
+              <div className="flex -translate-x-10 items-center gap-2 text-sm font-bold text-primary">
                 <FaMapMarkerAlt className="text-primary" />
                 {shipment.origin} → {shipment.destination}
               </div>
-              <div className="flex items-center gap-2 text-sm text-primary">
+              <div className="flex items-center gap-2 text-sm font-bold text-primary">
                 <FaCalendar className="text-primary" />
                 {shipment.date}
               </div>
-              <div className="flex items-center text-sm text-primary">
+              <div className="flex items-center text-sm font-bold text-primary">
                 {shipment.mode}
               </div>
               <div className="flex items-center justify-end">

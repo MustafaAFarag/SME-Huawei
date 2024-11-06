@@ -1,6 +1,6 @@
 // components/SignupHeader.tsx
 import { motion } from 'framer-motion';
-import Logo from '../../ui/Logo';
+import { Link } from 'react-router-dom';
 
 function SignupHeader() {
   return (
@@ -10,7 +10,9 @@ function SignupHeader() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <Logo />
+      <Link to="/">
+        <img src="./NexusFlow-removebg.png" className="w-32" />
+      </Link>
     </motion.div>
   );
 }

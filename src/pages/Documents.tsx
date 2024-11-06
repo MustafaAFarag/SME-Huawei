@@ -145,12 +145,12 @@ function Documents() {
       {/* Documents Table */}
       <div className="rounded-lg bg-white shadow-md">
         <div className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-300 bg-gray-100 p-4 text-sm font-bold text-gray-700">
-          <p>Document ID</p>
-          <p>Name</p>
-          <p>Company</p>
-          <p>Status</p>
-          <p>PDF</p>
-          <p>Actions</p>
+          <p className="font-bold text-primary">Document ID</p>
+          <p className="font-bold text-primary">Name</p>
+          <p className="font-bold text-primary">Company</p>
+          <p className="font-bold text-primary">Status</p>
+          <p className="font-bold text-primary">PDF</p>
+          <p className="font-bold text-primary">Actions</p>
         </div>
 
         {paginatedDocuments.map((doc, index) => (
@@ -162,9 +162,11 @@ function Documents() {
             transition={{ duration: 0.2, delay: index * 0.05 }}
             className="grid grid-cols-[1fr,1fr,1fr,1fr,1fr,auto] gap-4 border-b border-gray-200 p-4 text-gray-700 hover:bg-gray-50"
           >
-            <div className="font-medium text-gray-800">{doc.id}</div>
-            <div className="font-medium text-gray-800">{doc.name}</div>
-            <div className="text-gray-600">{doc.associatedCompany}</div>
+            <div className="font-bold text-primary">{doc.id}</div>
+            <div className="font-bold text-primary">{doc.name}</div>
+            <div className="font-bold text-primary">
+              {doc.associatedCompany}
+            </div>
             <div>
               <span
                 className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${getStatusColor(doc.status)}`}
@@ -173,7 +175,7 @@ function Documents() {
               </span>
             </div>
             <a
-              className="inline-flex w-24 -translate-x-3 items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition duration-200 hover:bg-blue-700"
+              className="inline-flex w-24 -translate-x-3 items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-bold text-white shadow-md transition duration-200 hover:bg-blue-700"
               target="_blank"
               href={doc.downloadLink}
             >

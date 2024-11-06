@@ -5,7 +5,7 @@ function VideoQuote() {
         <div className="md:w-1/2 md:pr-8">
           <iframe
             className="w-full rounded-lg shadow-lg"
-            src="https://www.youtube.com/embed/zqVxB7YFz6w?si=k6aLjqMv23Zswihs"
+            src="https://www.youtube.com/embed/k59VG4Vmfuk?si=_wAy52ilU9QytY6J&autoplay=1&mute=1"
             title="Overview of LogiSmart"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen

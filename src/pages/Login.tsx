@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import LoginForm from '../features/Login/LoginForm';
 import SocialLogin from '../features/Login/SocialLogin';
-import Logo from '../ui/Logo';
 
 function Login() {
   return (
@@ -19,7 +18,9 @@ function Login() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Logo />
+          <Link to="/">
+            <img src="./NexusFlow-removebg.png" className="w-32" />
+          </Link>
         </motion.div>
         <div className="w-full max-w-md space-y-8 rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-lg">
           <div className="text-center">
