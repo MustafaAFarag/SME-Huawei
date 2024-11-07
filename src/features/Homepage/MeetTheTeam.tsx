@@ -48,7 +48,7 @@ function MeetTheTeam() {
     },
     {
       name: 'Mustafa Ashraf',
-      role: 'Full Stack Developer',
+      role: 'Web Developer',
       image: './mustafa.png',
       linkedin: 'https://www.linkedin.com/in/mustafaashrafsaad/',
     },
