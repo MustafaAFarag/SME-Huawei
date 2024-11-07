@@ -22,7 +22,7 @@ export const inventoryData: InventoryItem[] = [
     category: 'Electronics',
     quantity: 50,
     price: 999.99,
-    status: 'In Stock',
+    status: 'Low Stock',
     reorderPoint: 80,
     lastUpdated: '2024/03/15',
     logisticsDetail: 'Inbound from China · Expected on 2024/03/20',

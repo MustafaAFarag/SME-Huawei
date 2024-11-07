@@ -48,6 +48,7 @@ function LoginForm() {
             type="email"
             className="peer w-full border-b-2 border-gray-300 bg-transparent py-2 pl-1 text-white placeholder-transparent focus:border-blue-600 focus:outline-none"
             placeholder=" "
+            value="mustafa.ashraf.saad@gmail.com"
           />
           <label
             htmlFor="Email"
@@ -80,6 +81,7 @@ function LoginForm() {
             type={showPassword ? 'text' : 'password'}
             className="peer w-full border-b-2 border-gray-300 bg-transparent py-2 pl-1 text-white placeholder-transparent focus:border-blue-600 focus:outline-none"
             placeholder=" "
+            value="mustafapassword"
           />
           <label className="absolute -top-3.5 left-1 text-sm text-teal-500 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600">
             Password

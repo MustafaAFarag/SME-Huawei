@@ -303,7 +303,7 @@ function Dashboard() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
+            transition={{ duration: 0.5 }}
             className="col-span-1 rounded-lg bg-white p-6 shadow-lg"
           >
             <h2 className="text-xl font-bold text-gray-900">

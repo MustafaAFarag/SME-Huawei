@@ -5,9 +5,9 @@ const ContactUs = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    email: '',
-    phone: '',
-    message: '',
+    email: 'mustafa.ashraf.saad@gmail.com',
+    phone: '0106 900 4741',
+    message: `Hello, I'm interested in learning how NexusFlow can enhance our logistics and supply chain processes, especially in inventory management and shipment tracking. Please feel free to reach out via email or phone. Looking forward to connecting!`,
   });
 
   const [submitted, setSubmitted] = useState(false);

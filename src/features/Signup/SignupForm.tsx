@@ -15,7 +15,6 @@ type FormData = {
 function SignupForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     register,
@@ -83,6 +82,7 @@ function SignupForm() {
             type="email"
             className="peer w-full border-b-2 border-gray-300 bg-transparent py-2 pl-1 text-white placeholder-transparent focus:border-blue-600 focus:outline-none"
             placeholder=" "
+            value="mustafa.ashraf.saad@gmail.com"
             id="email"
           />
           <label
@@ -118,6 +118,7 @@ function SignupForm() {
             className="peer w-full border-b-2 border-gray-300 bg-transparent py-2 pl-1 text-white placeholder-transparent focus:border-blue-600 focus:outline-none"
             placeholder=" "
             id="password"
+            value="mustafapassword"
           />
           <label
             htmlFor="password"
@@ -153,19 +154,20 @@ function SignupForm() {
               validate: (value) =>
                 value === password || 'The passwords do not match',
             })}
-            type={showConfirmPassword ? 'text' : 'password'}
+            type={showPassword ? 'text' : 'password'}
             className="peer w-full border-b-2 border-gray-300 bg-transparent py-2 pl-1 text-white placeholder-transparent focus:border-blue-600 focus:outline-none"
             placeholder=" "
+            value="mustafapassword"
           />
           <label className="absolute -top-3.5 left-1 text-sm text-teal-500 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-600">
             Confirm Password
           </label>
           <button
             type="button"
-            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            onClick={() => setShowPassword(!showPassword)}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-200"
           >
-            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
         </div>
         {errors.confirmPassword && (
