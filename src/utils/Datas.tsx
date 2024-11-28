@@ -256,7 +256,23 @@ export const shipmentData: Shipment[] = [
 
 // Members
 
-export const memberData = [
+type memberRole = 'Admin' | 'Member' | 'Moderator';
+
+type member = {
+  id: number;
+  name: string;
+  email: string;
+  role: memberRole;
+  phone: string;
+  department: string;
+  hireDate: string;
+  status: string;
+  location: string;
+  salary: number;
+  performanceRating: number;
+};
+
+export const memberData: member[] = [
   {
     id: 1,
     name: 'John Doe',

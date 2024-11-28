@@ -44,7 +44,7 @@ function MeetTheTeam() {
       name: 'Amr Medhat',
       role: 'Cloud Architect',
       image: './amr.png',
-      linkedin: 'https://www.linkedin.com/in/amr-medhat',
+      linkedin: 'https://www.linkedin.com/in/amrmamer/',
     },
     {
       name: 'Mustafa Ashraf',
@@ -56,7 +56,7 @@ function MeetTheTeam() {
       name: 'Mohamed Atwan',
       role: 'AI Engineer',
       image: './mohamed.png',
-      linkedin: 'https://www.linkedin.com/in/mohamed-atwan',
+      linkedin: 'https://www.linkedin.com/in/mo7amed3twan/',
     },
     {
       name: 'Khalid Omar',
