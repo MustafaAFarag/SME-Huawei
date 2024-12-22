@@ -24,7 +24,7 @@ function LoginForm() {
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1000));
     console.log(data);
-    navigate('/dashboard');
+    navigate('/datainput');
   };
 
   return (

@@ -17,6 +17,7 @@ import Members from './pages/Members';
 import Documents from './pages/Documents';
 import Invoices from './pages/Invoices';
 import Settings from './pages/Settings';
+import DataInput from './pages/DataInput';
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ function App() {
           </Route>
 
           <Route path="/signup" element={<Signup />} />
+          <Route path="/datainput" element={<DataInput />} />
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Homepage />} />
         </Routes>

@@ -24,7 +24,7 @@ function SignupForm() {
   } = useForm<FormData>();
 
   const password = watch('password');
-  const agreeToTerms = watch('agreeToTerms'); // Watch the agreeToTerms checkbox
+  const agreeToTerms = watch('agreeToTerms');
 
   const onSubmit = async (data: FormData) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
